@@ -1,10 +1,6 @@
 function Login(){
     return(
         <>
-<<<<<<< HEAD
-            <h1> DegreeDuo </h1>
-=======
->>>>>>> b54ecf5fdf73392129e756b1c3524df134c3a185
             <div className = "title-container">
                 <button className = "button">Back</button>
                 <form action="login" method = "post">
