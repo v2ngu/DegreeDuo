@@ -1,10 +1,16 @@
 import React from 'react';
-import './Register.css';
+// import './Register.css';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
+    const navigate = useNavigate();
+
+    const navigateTo = (path) => {
+      navigate(path);
+    };
+  
   return (
     <div className="register-container">
-      <h1 className="title">degreeDuo</h1>
       <div className="register-box">
         <form className="register-form">
           <div className="form-group">

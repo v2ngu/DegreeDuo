@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import LandingPage from './Landing.jsx'
+import RegisterPage from './Register.jsx'
 import DefaultProfile from './DefaultProfile.jsx'
-// import './index.css'
+import './index.css';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -17,16 +19,9 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <DefaultProfile /> },
       { path: "login", element: <Login/> },
+      { path: "register", element: <RegisterPage/> }
     ],
   },
-  // {
-  //   path: "Login",
-  //   element: <Login/>,
-  // },
-  // {
-  //   path: "Register",
-  //   element: <Register/>,
-  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
