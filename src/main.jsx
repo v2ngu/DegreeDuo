@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import Ratemyprofessor from './App.jsx'
+import Test from './Test.jsx'
+import './index.css'
 import LandingPage from './Landing.jsx'
 import DefaultProfile from './DefaultProfile.jsx'
 // import './index.css'
@@ -31,6 +34,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <App />
   </React.StrictMode>,
 )
