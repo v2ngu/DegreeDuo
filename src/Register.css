@@ -4,12 +4,7 @@
     align-items: center;
     padding: 20px;
   }
-  
-  .title {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
+    
   .register-box {
     background-color: #f0f0f0;
     padding: 20px;
@@ -47,17 +42,7 @@
     flex: 1;
   }
   
-  .register-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
-  
   .register-button:hover {
-    background-color: #0056b3;
+    background-color: #f2830c;
   }
   

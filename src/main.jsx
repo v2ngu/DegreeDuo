@@ -1,39 +1,28 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Ratemyprofessor from './App.jsx'
-import Test from './Test.jsx'
-import './index.css'
-import LandingPage from './Landing.jsx'
-import DefaultProfile from './DefaultProfile.jsx'
-// import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
-import Login from './Login.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LandingPage from './Landing.jsx';
+import Login from './Login.jsx';
+import Register from './Register.jsx';
+import DefaultProfile from './DefaultProfile.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <LandingPage/>,
-    children: [
-      { index: true, element: <DefaultProfile /> },
-      { path: "login", element: <Login/> },
-    ],
+    path: '/',
+    element: <LandingPage />,
   },
-  // {
-  //   path: "Login",
-  //   element: <Login/>,
-  // },
-  // {
-  //   path: "Register",
-  //   element: <Register/>,
-  // },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
-)
+);

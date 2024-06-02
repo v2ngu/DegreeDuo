@@ -1,10 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
+
+
 function RegisterPage() {
-  return (
+
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+      navigate(path);
+    };
+    return (
+
     <div className="register-container">
       <h1 className="title">degreeDuo</h1>
+      <button onClick={() => handleNavigation('/')} className="back-button">
+            Back
+          </button>
       <div className="register-box">
         <form className="register-form">
           <div className="form-group">
