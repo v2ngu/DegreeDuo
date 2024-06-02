@@ -22,10 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-o
-
-# Environments
-*.venv
-*.env
-/env
-/.venv

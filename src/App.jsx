@@ -1,69 +1,35 @@
-import { useState } from "react";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
-function Ratemyprofessor() {
+function App() {
   const [count, setCount] = useState(0)
-  const [professor, setProfessor] = useState(null);
-  const [school, setSchool] = useState('');
-  const [name, setName] = useState('');
-  const [error, setError] = useState('');
-
-  const fetchProfessor = async () => {
-  const url = `http://127.0.0.1:5000/api/professor?school=${school}&name=${name}`;
-  console.log('Fetching URL:', url);
-
-  try {
-    const response = await fetch(url);
-    console.log('Response Status:', response.status);
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Response Data:', data);
-      setProfessor(data);
-      setError('');
-    } else {
-      const errorData = await response.json();
-      console.error('Error Data:', errorData);
-      setError(errorData.error);
-      setProfessor(null);
-    }
-  } catch (error) {
-    console.error('Fetch Error:', error);
-    setError('Error fetching professor data');
-    setProfessor(null);
-  }
-};
 
   return (
     <>
       <div>
-            <h1>Rate My Professor Lookup</h1>
-            <input
-              type="text"
-              placeholder="School Name"
-              value={school}
-              onChange={(e) => setSchool(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Professor Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <button onClick={fetchProfessor}>Search</button>
-            {error && <p>{error}</p>}
-            {professor && (
-              <div>
-                <h2>{professor.name}</h2>
-                <p>Department: {professor.department}</p>
-                <p>School: {professor.school}</p>
-                <p>Rating: {professor.rating}</p>
-                <p>Difficulty: {professor.difficulty}</p>
-                <p>Number of Ratings: {professor.num_ratings}</p>
-                <p>Would Take Again: {professor.would_take_again}</p>
-              </div>
-            )}
-          </div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
     </>
   )
 }
 
-export default Ratemyprofessor
+export default App

@@ -1,16 +1,12 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-
 import ratemyprofessor
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
 @app.route('/api/professor', methods=['GET'])
 def get_professor():
     school_name = request.args.get('school')
     professor_name = request.args.get('name')
-    
     school = ratemyprofessor.get_school_by_name(school_name)
     professor = ratemyprofessor.get_professor_by_school_and_name(school, professor_name)
 
