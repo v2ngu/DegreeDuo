@@ -5,6 +5,7 @@ import LandingPage from './Landing.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
 import DefaultProfile from './DefaultProfile.jsx';
+import CourseSearch from './CourseSearch.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/coursesearch',
+    element: <CourseSearch />,
   },
 ]);
 
