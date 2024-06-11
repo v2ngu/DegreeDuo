@@ -1,109 +1,126 @@
-/* General Styles */
-
-body {
+@font-face {
+    font-family: "Jura";
+    src: url("../fonts/Jura.ttf");
+  }
+  
+  html, body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.tabs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.tab {
-    cursor: pointer;
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    background-color: #f0f0f0;
-    transition: background-color 0.3s;
-}
-
-.tab:hover {
-    background-color: #e0e0e0;
-}
-
-.tab.active {
-    background-color: #fff;
-}
-
-.tab-content {
-    display: none;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* Search Form Styles */
-
-.search-form {
-    margin-bottom: 20px;
-}
-
-.search-form label {
-    font-weight: bold;
-}
-
-.search-form input[type="text"],
-.search-form select {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.search-form button {
+    height: 100%;
+    overflow: hidden; /* Optional: Prevents scrolling */
+  }
+  
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 90vh;
+  }
+  
+  .title {
+    color: #bf5701;
+    font-size: 5em;
+    font-family: Jura;
+    margin-bottom: 20px;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.search-form button:hover {
-    background-color: #0056b3;
-}
-
-/* Course List Styles */
-
-.course-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.course-list-item {
+    background-color: #FFA652;
+    border-radius: 15px;
+    margin: 0 10px;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tab.active {
+    background-color: #FF8C00; /* Darker orange for the active tab */
+  }
+  
+  .tab:focus {
+    background-color: #FF8C00; /* Darker orange on focus */
+  }
+  
+  .tab-contents {
+    width: 80%;
+    margin-top: 20px;
+  }
+  
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .search-row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s;
-}
-
-.course-list-item:hover {
-    background-color: #f9f9f9;
-}
-
-.course-list-item h3 {
-    margin-top: 0;
-}
-
-.course-list-item p {
-    margin-bottom: 5px;
-}
+    margin-right: 10px;
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 15px;
+    border: none;
+    background-color: #FFA652;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #FF8C00;
+  }
+  
+  .results {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .results-content {
+    margin-top: 10px;
+  }
+  
+  .course-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .banner {
+    width: 100%;
+    background-color: #e0e0e0;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+  

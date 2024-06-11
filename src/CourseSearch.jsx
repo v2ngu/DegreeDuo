@@ -3,52 +3,136 @@ import { useNavigate } from 'react-router-dom';
 import './CourseSearch.css'; 
 import { Outlet } from "react-router-dom";
 
-function CourseSearch() {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('search-department'); // State to track active tab
+function CourseSearchTabs() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [department, setDepartment] = useState('');
+  const [level, setLevel] = useState('');
+  const [results, setResults] = useState([]);
 
-  const handleNavigation = (path) => {
-    navigate(path);
-    setActiveTab(path); // Update active tab when navigating
+  const tabs = [
+    'Search by Department and Level', 
+    'Search by Core Curriculum and Flags', 
+    'Search by Unique Course Number', 
+    'Class Suggestion'
+  ];
+
+  const handleSearch = async () => {
+    const response = await fetch('http://localhost:5000/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        searchOption: 'Department and Level',
+        department,
+        level,
+      }),
+    });
+
+    const data = await response.json();
+    setResults(data);
   };
+
+  const departments = [
+    { value: 'CS', label: 'Computer Science' },
+    { value: 'TS', label: 'Tutorial Course' },
+    { value: 'UGS', label: 'Undergraduate Study' },
+    { value: 'E', label: 'English' },
+    { value: 'CL', label: 'Classical Languages' },
+    // Add more departments as needed
+  ];
+
+  const levels = [
+    { value: 'Lower', label: 'Lower' },
+    { value: 'Upper', label: 'Upper' },
+  ];
 
   return (
     <>
-      <div className="CourseSearch-container">
+      <div className="landing-container">
         <div>
           <h1 className="title">degreeDuo</h1>
         </div>
-        <div className="button-container">
-          {/* Your content goes here */}
+        <div className="container">
+          <div className="tabs" role="tablist">
+            {tabs.map((tab, index) => (
+              <div
+                key={index}
+                className={`tab ${activeTab === index ? 'active' : ''}`}
+                role="tab"
+                tabIndex={0}
+                aria-selected={activeTab === index}
+                onClick={() => setActiveTab(index)}
+              >
+                {tab}
+              </div>
+            ))}
+          </div>
+          <div className="tab-contents">
+            {activeTab === 0 && (
+              <div className="tab-content active" role="tabpanel">
+                <div className="search-row">
+                  <select
+                    className="dropdown"
+                    value={department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                  >
+                    <option value="">Select Department</option>
+                    {departments.map((dept) => (
+                      <option key={dept.value} value={dept.value}>
+                        {dept.label}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    className="dropdown"
+                    value={level}
+                    onChange={(e) => setLevel(e.target.value)}
+                  >
+                    <option value="">Select Level</option>
+                    {levels.map((lvl) => (
+                      <option key={lvl.value} value={lvl.value}>
+                        {lvl.label}
+                      </option>
+                    ))}
+                  </select>
+                  <button className="search-button" onClick={handleSearch}>Search</button>
+                </div>
+                <div className="results">
+                  <h2>Results</h2>
+                  <div className="results-content">
+                    {results.map((course, index) => (
+                      <div key={index} className="course-item">
+                        {course.course_name} - {course.instructor_name} - {course.day} - {course.hour}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {activeTab === 1 && (
+              <div className="tab-content" role="tabpanel">
+                Search by Core Curriculum and Flags Content
+              </div>
+            )}
+            {activeTab === 2 && (
+              <div className="tab-content" role="tabpanel">
+                Search by Unique Course Number Content
+              </div>
+            )}
+            {activeTab === 3 && (
+              <div className="tab-content" role="tabpanel">
+                Class Suggestion Content
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="tabs">
-        <button onClick={() => handleNavigation('search-department')} className={activeTab === 'search-department' ? "active-tab tab-button" : "tab-button"}>
-          Search by Department and Level
-        </button>
-        <button onClick={() => handleNavigation('search-core-curriculum')} className={activeTab === 'search-core-curriculum' ? "active-tab tab-button" : "tab-button"}>
-          Search by Core Curriculum and Flags
-        </button>
-        <button onClick={() => handleNavigation('search-course-number')} className={activeTab === 'search-course-number' ? "active-tab tab-button" : "tab-button"}>
-          Search by Unique Course Number
-        </button>
-        <button onClick={() => handleNavigation('class-suggestion')} className={activeTab === 'class-suggestion' ? "active-tab tab-button" : "tab-button"}>
-          Class Suggestion
-        </button>
-        <button onClick={() => handleNavigation('/')} className="back-button">
-          Back
-        </button>
       </div>
       <div className="banner">
         Inspire LLC™
       </div>
-      {/* Conditional rendering based on active tab */}
-      {activeTab === 'search-department' && <SearchByDepartment />}
-      {activeTab === 'search-core-curriculum' && <SearchByCoreCurriculum />}
-      {activeTab === 'search-course-number' && <SearchByCourseNumber />}
-      {activeTab === 'class-suggestion' && <ClassSuggestion />}
     </>
   );
 }
 
-export default CourseSearch;
+export default CourseSearchTabs;
