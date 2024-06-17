@@ -1,0 +1,64 @@
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 90vh;
+}
+
+.title {
+  color: #bf5701;
+  font-size: 5em;
+  font-family: Jura;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40vh;
+}
+
+
+.guest-button {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.guest-button:hover {
+background-color: #333; /* Darker black on hover */
+}
+
+.login-button,
+.register-button {
+  border-radius: 15px;
+  width: 200px;
+  height: 50px;
+  margin-bottom: 20px;
+  background-color: #FFA652;
+  border: none;
+  cursor: pointer; /* Add cursor pointer */
+  transition: background-color 0.3s ease; /* Add transition */
+}
+
+.login-button:hover,
+.register-button:hover {
+background-color: #FF8C00; /* Darker orange on hover */
+}
+
+
+
+.banner {
+width: 100%;
+background-color: #e0e0e0;
+text-align: center;
+padding: 10px 0;
+position: fixed;
+bottom: 0;
+left:0;
+}
