@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CourseSearch.css'; 
-import { Outlet } from "react-router-dom";
+import './CourseSearch.css';
+import SearchByDepartmentAndLevel from './assets/components/SearchByDepartmentAndLevel.jsx';
+import SearchByCoreCurriculumAndFlags from './assets/components/SearchByCoreCurriculumAndFlags.jsx';
+import SearchByUniqueCourseNumber from './assets/components/SearchByUniqueCourseNumber.jsx';
+import ClassSuggestion from './assets/components/ClassSuggestion.jsx';
 
 function CourseSearchTabs() {
   const [activeTab, setActiveTab] = useState(0);
-  const [department, setDepartment] = useState('');
-  const [level, setLevel] = useState('');
   const [results, setResults] = useState([]);
 
   const tabs = [
@@ -16,36 +16,21 @@ function CourseSearchTabs() {
     'Class Suggestion'
   ];
 
-  const handleSearch = async () => {
-    const response = await fetch('http://localhost:5000/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        searchOption: 'Department and Level',
-        department,
-        level,
-      }),
-    });
-
-    const data = await response.json();
-    setResults(data);
+  const handleSearch = async (searchOption, searchParams) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ searchOption, ...searchParams }),
+      });
+      const data = await response.json();
+      setResults(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
-  const departments = [
-    { value: 'CS', label: 'Computer Science' },
-    { value: 'TS', label: 'Tutorial Course' },
-    { value: 'UGS', label: 'Undergraduate Study' },
-    { value: 'E', label: 'English' },
-    { value: 'CL', label: 'Classical Languages' },
-    // Add more departments as needed
-  ];
-
-  const levels = [
-    { value: 'Lower', label: 'Lower' },
-    { value: 'Upper', label: 'Upper' },
-  ];
 
   return (
     <>
@@ -69,62 +54,10 @@ function CourseSearchTabs() {
             ))}
           </div>
           <div className="tab-contents">
-            {activeTab === 0 && (
-              <div className="tab-content active" role="tabpanel">
-                <div className="search-row">
-                  <select
-                    className="dropdown"
-                    value={department}
-                    onChange={(e) => setDepartment(e.target.value)}
-                  >
-                    <option value="">Select Department</option>
-                    {departments.map((dept) => (
-                      <option key={dept.value} value={dept.value}>
-                        {dept.label}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    className="dropdown"
-                    value={level}
-                    onChange={(e) => setLevel(e.target.value)}
-                  >
-                    <option value="">Select Level</option>
-                    {levels.map((lvl) => (
-                      <option key={lvl.value} value={lvl.value}>
-                        {lvl.label}
-                      </option>
-                    ))}
-                  </select>
-                  <button className="search-button" onClick={handleSearch}>Search</button>
-                </div>
-                <div className="results">
-                  <h2>Results</h2>
-                  <div className="results-content">
-                    {results.map((course, index) => (
-                      <div key={index} className="course-item">
-                        {course.course_name} - {course.instructor_name} - {course.day} - {course.hour}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {activeTab === 1 && (
-              <div className="tab-content" role="tabpanel">
-                Search by Core Curriculum and Flags Content
-              </div>
-            )}
-            {activeTab === 2 && (
-              <div className="tab-content" role="tabpanel">
-                Search by Unique Course Number Content
-              </div>
-            )}
-            {activeTab === 3 && (
-              <div className="tab-content" role="tabpanel">
-                Class Suggestion Content
-              </div>
-            )}
+            {activeTab === 0 && <SearchByDepartmentAndLevel handleSearch={handleSearch} results={results} />}
+            {activeTab === 1 && <SearchByCoreCurriculumAndFlags handleSearch={handleSearch} results={results} />}
+            {activeTab === 2 && <SearchByUniqueCourseNumber handleSearch={handleSearch} results={results} />}
+            {activeTab === 3 && <ClassSuggestion />}
           </div>
         </div>
       </div>

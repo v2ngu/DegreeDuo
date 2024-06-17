@@ -59,8 +59,9 @@ def search_courses():
         cc_input = data.get("cc")
         flags_input = data.get("flags")
         for course in courses:
-            if course.cc == cc_input and flags_input in course.flags:
-                results.append(course.__dict__)
+            if course.cc == cc_input:
+                if not flags_input or any(flag in course.flags for flag in flags_input):
+                    results.append(course.__dict__)
     elif search_option == "Unique Number":
         unique_number = data.get("uniqueNumber")
         for course in courses:
