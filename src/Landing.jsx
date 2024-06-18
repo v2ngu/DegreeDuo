@@ -15,7 +15,7 @@ function LandingPage() {
           <h1 className="title">degreeDuo</h1>
         </div>
         <div className="button-container">
-          <button className="guest-button">
+          <button onClick={() => handleNavigation('/guestpopup')} className="guest-button">
             USE DEGREE PLANNER AS GUEST
           </button>
           <button onClick={() => handleNavigation('/login')} className="login-button">

@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LandingPage from './Landing.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
-import DefaultProfile from './DefaultProfile.jsx';
+import GuestProfile from './GuestPopUp.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +19,10 @@ const router = createBrowserRouter([
     path: '/register',
     element: <Register />,
   },
+  {
+    path: '/guestpopup',
+    element: <GuestProfile />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
