@@ -25,6 +25,12 @@
     justify-content: center;
 
     position: relative;
+
+    width: 70%; /* Adjust the percentage as needed */
+    max-width: 600px; /* Optional: set a maximum width */
+    min-width: 300px; /* Optional: set a minimum width */
+    height: 45%; /* Adjust the height if needed */
+  
 }
 
 
@@ -54,6 +60,6 @@
 
 .back-button-container {
     position: absolute;
-    top: 10px; /* Adjust as needed */
-    left: 10px; /* Adjust as needed */
+    top: 10px;
+    left: 10px; 
 }

@@ -3,35 +3,6 @@
     src: url("../fonts/Jura.ttf");
   }
   
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* Optional: Prevents scrolling */
-  }
-  
-  .landing-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 90vh;
-  }
-  
-  .title {
-    color: #bf5701;
-    font-size: 5em;
-    font-family: Jura;
-    margin-bottom: 20px;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
   .tabs {
     display: flex;
     justify-content: space-around;
@@ -96,10 +67,6 @@
     transition: background-color 0.3s ease;
   }
   
-  .search-button:hover {
-    background-color: #FF8C00;
-  }
-  
   .results {
     width: 100%;
     text-align: center;
@@ -113,14 +80,6 @@
     padding: 10px;
     border-bottom: 1px solid #ccc;
   }
-  
-  .banner {
-    width: 100%;
-    background-color: #e0e0e0;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-  }
+
+
   

@@ -7,14 +7,25 @@
   
   
   .guest-box {
-    background-color: #f0f0f0;
+    background-color: #E8E8E8;
+    /* Gray background */
+    border: 2px solid black;
+    /* Black outline */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    /* Inner spacing */
+    border-radius: 5px;
+    /* Optional: rounded corners */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    width: 70%; /* Adjust the percentage as needed */
+    max-width: 600px; /* Optional: set a maximum width */
+    min-width: 300px; /* Optional: set a minimum width */
+    height: 45%; /* Adjust the height if needed */
   }
 
   
