@@ -8,7 +8,7 @@
 
 .title {
   color: #bf5701;
-  font-size: 5em;
+  font-size: 2em;
   font-family: Jura;
   margin-bottom: 20px;
 }
@@ -22,12 +22,15 @@
 
 
 .guest-button {
-  background-color: black;
-  color: white;
-  padding: 10px 20px;
   border-radius: 15px;
+  width: 200px;
+  height: 50px;
   margin-bottom: 20px;
+  background-color: #000000;
+  color: #ffff;
   border: none;
+  cursor: pointer; /* Add cursor pointer */
+  transition: background-color 0.3s ease; /* Add transition */
 }
 
 .guest-button:hover {

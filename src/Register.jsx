@@ -1,24 +1,26 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Register.css';
+// import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+import BackComponent from './Components/BackComponent';
+import './styles/Register.css';
+
 
 
 
 function RegisterPage() {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleNavigation = (path) => {
-      navigate(path);
-    };
+    // const handleNavigation = (path) => {
+    //   navigate(path);
+    // };
     return (
-
+    <>
     <div className="register-container">
       <h1 className="title">degreeDuo</h1>
-      <button onClick={() => handleNavigation('/')} className="back-button">
-            Back
-          </button>
       <div className="register-box">
+        <div className="back-button-container">
+              <BackComponent to="/" />
+        </div>
         <form className="register-form">
           <div className="form-group">
             <label>First Name</label>
@@ -68,7 +70,11 @@ function RegisterPage() {
         </form>
       </div>
     </div>
-  );
+    <div className='banner'>
+    Inspire LLC™
+    </div>
+    </>
+  )
 }
 
 export default RegisterPage;

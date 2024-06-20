@@ -7,12 +7,13 @@ function Login(){
     return(
         <>
             <div className = "landing-container">
+
                 <div>
                     <h1 className="title">degreeDuo</h1>
                 </div>
                 <div className="login-container">
-                    <  div className="back-button-container">
-                        <BackComponent to="/" />
+                    <div className="back-button-container">
+                            <BackComponent to="/" />
                     </div>
                     <div className="login-field">
                         <label htmlFor="username" className="login-label">Username:</label>
