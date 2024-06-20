@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 function SearchByDepartmentAndLevel({ handleSearch, results }) {
-  const [department, setDepartment] = useState('');
-  const [level, setLevel] = useState('');
+  const [department, setDepartment] = useState();
+  const [level, setLevel] = useState();
 
   const departments = [
-    { value: 'CS', label: 'Computer Science' },
+    { value: 'Computer Science', label: 'Computer Science' },
+    { value: 'Tutorial Course', label: 'Tutorial Course' },
     { value: 'TS', label: 'Tutorial Course' },
     { value: 'UGS', label: 'Undergraduate Study' },
     { value: 'E', label: 'English' },
@@ -50,16 +51,6 @@ function SearchByDepartmentAndLevel({ handleSearch, results }) {
           ))}
         </select>
         <button className="search-button" onClick={onSearch}>Search</button>
-      </div>
-      <div className="results">
-        <h2>Results</h2>
-        <div className="results-content">
-          {results.map((course, index) => (
-            <div key={index} className="course-item">
-              {course.course_name} (ID: {course.course_id})
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

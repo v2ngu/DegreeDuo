@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 import json
 
 # Define the Course class
 class Course:
-    def __init__(self, department, course_id, course_name, day, hour, room, instruction_mode, instructor_name, status, flags, level, cc):
+    def __init__(self, department, course_id, course_name, day, hour, room, instruction_mode, instructor_name, status, flags, level, coreCurriculum):
         self.department = department
         self.course_id = course_id
         self.course_name = course_name
@@ -15,7 +17,7 @@ class Course:
         self.status = status
         self.flags = flags
         self.level = level
-        self.cc = cc
+        self.coreCurriculum = coreCurriculum
 
     @classmethod
     def from_json(cls, data):
@@ -42,10 +44,13 @@ with open("coursesdata.json") as f:
 courses = [Course.from_json(course) for course in courses_data]
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET'])
 def search_courses():
-    data = request.json
+   
+    data = request.args
+
     search_option = data.get("searchOption")
     results = []
 
@@ -56,17 +61,18 @@ def search_courses():
             if course.department == department_input and course.level == level_input:
                 results.append(course.__dict__)
     elif search_option == "Core Curriculum and Flags":
-        cc_input = data.get("cc")
+        cc_input = data.get("coreCurriculum")
         flags_input = data.get("flags")
+        print(f"Searching by Core Curriculum and Flags: {cc_input}, {flags_input}")  # Debug statement
         for course in courses:
-            if course.cc == cc_input:
+            if course.coreCurriculum == cc_input:
                 if not flags_input or any(flag in course.flags for flag in flags_input):
                     results.append(course.__dict__)
     elif search_option == "Unique Number":
-        unique_number = data.get("uniqueNumber")
+        uniqueNumber = data.get("uniqueNumber")
         for course in courses:
-            if course.course_id == unique_number:
-                results.append(course.__dict__)
+            if (course.course_id) == uniqueNumber:
+                results = course.__dict__
     else:
         return jsonify({"error": "Search Option Error"}), 400
 

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './CourseSearch.css';
-import SearchByDepartmentAndLevel from './assets/components/SearchByDepartmentAndLevel.jsx';
-import SearchByCoreCurriculumAndFlags from './assets/components/SearchByCoreCurriculumAndFlags.jsx';
-import SearchByUniqueCourseNumber from './assets/components/SearchByUniqueCourseNumber.jsx';
-import ClassSuggestion from './assets/components/ClassSuggestion.jsx';
+import SearchByDepartmentAndLevel from './Components/SearchByDepartmentAndLevel.jsx';
+import SearchByCoreCurriculumAndFlags from './Components/SearchByCoreCurriculumAndFlags.jsx';
+import SearchByUniqueCourseNumber from './Components/SearchByUniqueCourseNumber.jsx';
+import ClassSuggestion from './Components/ClassSuggestion.jsx';
+import axios from 'axios'
 
 function CourseSearchTabs() {
   const [activeTab, setActiveTab] = useState(0);
@@ -16,20 +17,26 @@ function CourseSearchTabs() {
     'Class Suggestion'
   ];
 
-  const handleSearch = async (searchOption, searchParams) => {
-    try {
-      const response = await fetch('http://127.0.0.1:5000/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ searchOption, ...searchParams }),
-      });
-      const data = await response.json();
-      setResults(data);
-    } catch (error) {
+  const handleSearch = async (searchOption, { department, level, coreCurriculum, flags, uniqueNumber }) => {
+    axios.get('http://127.0.0.1:5000/search', {
+      params: {
+        searchOption,
+        department,
+        level,
+        coreCurriculum,
+        flags, 
+        uniqueNumber,
+      }
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+      // Handle success
+      setResults(response.data);
+    })
+    .catch(error => {
       console.error('Error:', error);
-    }
+      // Handle error
+    });
   };
 
   return (
@@ -58,6 +65,12 @@ function CourseSearchTabs() {
             {activeTab === 1 && <SearchByCoreCurriculumAndFlags handleSearch={handleSearch} results={results} />}
             {activeTab === 2 && <SearchByUniqueCourseNumber handleSearch={handleSearch} results={results} />}
             {activeTab === 3 && <ClassSuggestion />}
+          </div>
+        </div>
+          <div className="results">
+          <h2>Results</h2>
+          <div className="results-content">
+            <pre>{JSON.stringify(results, null, 2)}</pre>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function SearchByCoreCurriculumAndFlags({ handleSearch, results }) {
-  const [coreCurriculum, setCoreCurriculum] = useState('');
+  const [coreCurriculum, setCoreCurriculum] = useState();
   const [flags, setFlags] = useState([]);
 
   const coreCurriculums = [
@@ -35,7 +35,7 @@ function SearchByCoreCurriculumAndFlags({ handleSearch, results }) {
   };
 
   const onSearch = () => {
-    handleSearch('Core Curriculum and Flags', { cc: coreCurriculum, flags });
+    handleSearch('Core Curriculum and Flags', { coreCurriculum, flags });
   };
 
   return (
@@ -55,27 +55,19 @@ function SearchByCoreCurriculumAndFlags({ handleSearch, results }) {
         </select>
         <div className="checkbox-group">
           {flagOptions.map((flag) => (
-            <label key={flag} className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={flags.includes(flag)}
-                onChange={() => handleFlagChange(flag)}
-              />
-              {flag}
-            </label>
-          ))}
-        </div>
-        <button className="search-button" onClick={onSearch}>Search</button>
-      </div>
-      <div className="results">
-        <h2>Results</h2>
-        <div className="results-content">
-          {results.map((course, index) => (
-            <div key={index} className="course-item">
-              {course.course_name} (ID: {course.course_id})
+            <div key={flag} className="checkbox-wrapper">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={flags.includes(flag)}
+                  onChange={() => handleFlagChange(flag)}
+                />
+                {flag}
+              </label>
             </div>
           ))}
         </div>
+        <button className="search-button" onClick={onSearch}>Search</button>
       </div>
     </div>
   );

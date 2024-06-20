@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function SearchByUniqueCourseNumber({ handleSearch, results }) {
-  const [uniqueNumber, setUniqueNumber] = useState('');
+  const [uniqueNumber, setUniqueNumber] = useState();
 
   const onSearch = () => {
     handleSearch('Unique Number', { uniqueNumber });
@@ -18,16 +18,6 @@ function SearchByUniqueCourseNumber({ handleSearch, results }) {
           placeholder="Enter Unique Course Number"
         />
         <button className="search-button" onClick={onSearch}>Search</button>
-      </div>
-      <div className="results">
-        <h2>Results</h2>
-        <div className="results-content">
-          {results.map((course, index) => (
-            <div key={index} className="course-item">
-              {course.course_name} (ID: {course.course_id})
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
