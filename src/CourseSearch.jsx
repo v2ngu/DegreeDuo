@@ -4,7 +4,7 @@ import SearchByDepartmentAndLevel from './Components/SearchByDepartmentAndLevel.
 import SearchByCoreCurriculumAndFlags from './Components/SearchByCoreCurriculumAndFlags.jsx';
 import SearchByUniqueCourseNumber from './Components/SearchByUniqueCourseNumber.jsx';
 import ClassSuggestion from './Components/ClassSuggestion.jsx';
-import axios from 'axios'
+import axios from 'axios';
 
 function CourseSearchTabs() {
   const [activeTab, setActiveTab] = useState(0);
@@ -17,15 +17,11 @@ function CourseSearchTabs() {
     'Class Suggestion'
   ];
 
-  const handleSearch = async (searchOption, { department, level, coreCurriculum, flags, uniqueNumber }) => {
+  const handleSearch = async (searchOption, searchParams) => {
     axios.get('http://127.0.0.1:5000/search', {
       params: {
         searchOption,
-        department,
-        level,
-        coreCurriculum,
-        flags, 
-        uniqueNumber,
+        ...searchParams,
       }
     })
     .then(response => {
@@ -67,10 +63,41 @@ function CourseSearchTabs() {
             {activeTab === 3 && <ClassSuggestion />}
           </div>
         </div>
-          <div className="results">
+        <div className="results">
           <h2>Results</h2>
           <div className="results-content">
-            <pre>{JSON.stringify(results, null, 2)}</pre>
+            <div className="results-header">
+              <div>Department</div>
+              <div>Course ID</div>
+              <div>Course Name</div>
+              <div>Day</div>
+              <div>Hour</div>
+              <div>Room</div>
+              <div>Instruction Mode</div>
+              <div>Instructor Name</div>
+              <div>Status</div>
+              <div>Flags</div>
+              <div>Level</div>
+              <div>Core Curriculum</div>
+            </div>
+            <div className="results-scroll">
+              {results.map((course, index) => (
+                <div key={index} className="course-item">
+                  <div>{course.department}</div>
+                  <div>{course.course_id}</div>
+                  <div>{course.course_name}</div>
+                  <div>{course.day}</div>
+                  <div>{course.hour}</div>
+                  <div>{course.room}</div>
+                  <div>{course.instruction_mode}</div>
+                  <div>{course.instructor_name}</div>
+                  <div>{course.status}</div>
+                  <div>{course.flags}</div>
+                  <div>{course.level}</div>
+                  <div>{course.cc}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
