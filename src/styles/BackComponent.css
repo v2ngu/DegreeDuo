@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "Jura";
+    src: url("../fonts/Jura.ttf");
+}
+.back-component span{
+    font-size: 1.25em;
+    color: black;
+    margin: 0 10px;
+}
+
+.back-component {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Jura;
+    font-weight: 900;
+    text-decoration: none !important;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px; /* Adjust width as needed */
+    height: auto; /* Adjust height as needed */
+    background-color: gray;
+    border: 2px solid black;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
