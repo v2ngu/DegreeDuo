@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './CourseSearch.css';
-import SearchByDepartmentAndLevel from './assets/components/SearchByDepartmentAndLevel.jsx';
-import SearchByCoreCurriculumAndFlags from './assets/components/SearchByCoreCurriculumAndFlags.jsx';
-import SearchByUniqueCourseNumber from './assets/components/SearchByUniqueCourseNumber.jsx';
-import ClassSuggestion from './assets/components/ClassSuggestion.jsx';
+import SearchByDepartmentAndLevel from './Components/SearchByDepartmentAndLevel.jsx';
+import SearchByCoreCurriculumAndFlags from './Components/SearchByCoreCurriculumAndFlags.jsx';
+import SearchByUniqueCourseNumber from './Components/SearchByUniqueCourseNumber.jsx';
+import ClassSuggestion from './Components/ClassSuggestion.jsx';
+import axios from 'axios';
 
 function CourseSearchTabs() {
   const [activeTab, setActiveTab] = useState(0);
@@ -17,19 +18,21 @@ function CourseSearchTabs() {
   ];
 
   const handleSearch = async (searchOption, searchParams) => {
-    try {
-      const response = await fetch('http://127.0.0.1:5000/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ searchOption, ...searchParams }),
-      });
-      const data = await response.json();
-      setResults(data);
-    } catch (error) {
+    axios.get('http://127.0.0.1:5000/search', {
+      params: {
+        searchOption,
+        ...searchParams,
+      }
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+      // Handle success
+      setResults(response.data);
+    })
+    .catch(error => {
       console.error('Error:', error);
-    }
+      // Handle error
+    });
   };
 
   return (
@@ -58,6 +61,43 @@ function CourseSearchTabs() {
             {activeTab === 1 && <SearchByCoreCurriculumAndFlags handleSearch={handleSearch} results={results} />}
             {activeTab === 2 && <SearchByUniqueCourseNumber handleSearch={handleSearch} results={results} />}
             {activeTab === 3 && <ClassSuggestion />}
+          </div>
+        </div>
+        <div className="results">
+          <h2>Results</h2>
+          <div className="results-content">
+            <div className="results-header">
+              <div>Department</div>
+              <div>Course ID</div>
+              <div>Course Name</div>
+              <div>Day</div>
+              <div>Hour</div>
+              <div>Room</div>
+              <div>Instruction Mode</div>
+              <div>Instructor Name</div>
+              <div>Status</div>
+              <div>Flags</div>
+              <div>Level</div>
+              <div>Core Curriculum</div>
+            </div>
+            <div className="results-scroll">
+              {results.map((course, index) => (
+                <div key={index} className="course-item">
+                  <div>{course.department}</div>
+                  <div>{course.course_id}</div>
+                  <div>{course.course_name}</div>
+                  <div>{course.day}</div>
+                  <div>{course.hour}</div>
+                  <div>{course.room}</div>
+                  <div>{course.instruction_mode}</div>
+                  <div>{course.instructor_name}</div>
+                  <div>{course.status}</div>
+                  <div>{course.flags}</div>
+                  <div>{course.level}</div>
+                  <div>{course.cc}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

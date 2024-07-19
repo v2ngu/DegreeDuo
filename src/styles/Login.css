@@ -1,0 +1,65 @@
+.login-label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-container {
+    background-color: #E8E8E8;
+    /* Gray background */
+    border: 2px solid black;
+    /* Black outline */
+    padding: 20px;
+    /* Inner spacing */
+    border-radius: 5px;
+    /* Optional: rounded corners */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    width: 70%; /* Adjust the percentage as needed */
+    max-width: 600px; /* Optional: set a maximum width */
+    min-width: 300px; /* Optional: set a minimum width */
+    height: 45%; /* Adjust the height if needed */
+  
+}
+
+
+.login-field{
+    display: flex;
+    flex-direction: column;
+}
+
+#login-button1 {
+    background-color: #BF5701;
+    color: black;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.create-account-link {
+    margin-top: 15px;
+    color: blue;
+    cursor: pointer;
+    text-decoration: none;
+    /* Removes text decoration */  
+
+}
+
+.back-button-container {
+    position: absolute;
+    top: 10px;
+    left: 10px; 
+}

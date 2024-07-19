@@ -6,6 +6,7 @@ import Login from './Login.jsx';
 import Register from './Register.jsx';
 import DefaultProfile from './DefaultProfile.jsx';
 import CourseSearch from './CourseSearch.jsx';
+import GuestProfile from './GuestPopUp.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     path: '/coursesearch',
     element: <CourseSearch />,
   },
+  {
+    path: '/guestpopup',
+    element: <GuestProfile />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
