@@ -19,7 +19,7 @@ function GuestProfile() {
                   <BackComponent to="/" />
           </div>
         <button className="login-button">Create Myself: Fall</button>
-        <button className="login-button">AI Generated Schedule</button>
+        <button className="login-button" navigateTo="/coursesearch">AI Generated Schedule</button>
         <button className="login-button">Create Myself: Spring</button>
       </div>
     </div>
