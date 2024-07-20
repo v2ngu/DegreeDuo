@@ -4,10 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LandingPage from './Landing.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
-import DefaultProfile from './DefaultProfile.jsx';
 import CourseSearch from './CourseSearch.jsx';
 import GuestProfile from './GuestPopUp.jsx';
 import CoursesList from './CoursesList.jsx';
+import Schedule from './Schedule.jsx'
 
 const router = createBrowserRouter([
   {
@@ -33,7 +33,12 @@ const router = createBrowserRouter([
   {
     path: '/courselist',
     element: <CoursesList />,
-  }
+  },
+  {
+    path: '/schedule',
+    element: <Schedule />,
+  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
