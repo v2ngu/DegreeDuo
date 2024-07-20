@@ -18,7 +18,7 @@ function GuestProfile() {
           <div className="back-button-container">
                   <BackComponent to="/" />
           </div>
-        <button className="login-button">Create Myself: Fall</button>
+        <button className="login-button" onClick={() => navigateTo("/courselist")}>Create Myself: Fall</button>
         <button className="login-button" onClick={() => navigateTo("/coursesearch")}>AI Generated Schedule</button>
         <button className="login-button">Create Myself: Spring</button>
       </div>

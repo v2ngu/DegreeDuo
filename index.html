@@ -19,6 +19,13 @@
     height: 100%;
     font-family: 'Jura', sans-serif;
   }
-
   </style>
+  <script>
+    async function list() {
+    const endpoint = '/data-api/rest/Schedule?$first=5';
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    console.table(data.value);
+  }
+  </script>
 </html>
