@@ -17,7 +17,10 @@
     "host": {
       "mode": "production",
       "cors": {
-        "origins": ["http://localhost:5173"],
+        "origins": [
+          "https://witty-stone-04723010f.5.azurestaticapps.net",
+          "http://localhost:5173"
+        ],
         "allow-credentials": true
       },
       "authentication": {
