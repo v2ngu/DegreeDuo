@@ -7,8 +7,7 @@ import Register from './Register.jsx';
 import DefaultProfile from './DefaultProfile.jsx';
 import CourseSearch from './CourseSearch.jsx';
 import GuestProfile from './GuestPopUp.jsx';
-import Schedule from './Schedule.jsx'
-
+import CoursesList from './CoursesList.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +31,8 @@ const router = createBrowserRouter([
     element: <GuestProfile />,
   },
   {
-    path: '/schedule',
-    element: <Schedule />,
+    path: '/courselist',
+    element: <CoursesList />,
   }
 ]);
 
