@@ -7,6 +7,8 @@ import Register from './Register.jsx';
 import DefaultProfile from './DefaultProfile.jsx';
 import CourseSearch from './CourseSearch.jsx';
 import GuestProfile from './GuestPopUp.jsx';
+import Schedule from './Schedule.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: '/guestpopup',
     element: <GuestProfile />,
+  },
+  {
+    path: '/schedule',
+    element: <Schedule />,
   }
 ]);
 
