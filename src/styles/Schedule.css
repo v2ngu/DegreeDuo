@@ -1,0 +1,88 @@
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    color: #bf5701;
+    font-size: 2em;
+    font-family: Jura;
+    margin-bottom: 20px;
+  }
+  
+  .subtitle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .subtitle {
+    font-size: 1.5em;
+    font-family: Jura;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between; /* Ensures buttons are spaced evenly */
+    gap: 10px; /* Adds spacing between buttons if needed */
+    margin-bottom: 20px; /* Space below buttons */
+  }
+  
+  .left-button,
+  .right-button {
+    flex: 1; /* Makes buttons expand to fill available space */
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #2196F3;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .left-button:hover,
+  .right-button:hover {
+    background-color: #1976D2;
+  }
+  
+  .schedule-container {
+    display: grid;
+    grid-template-columns: 100px repeat(5, 1fr); /* 1 column for times and 5 for days */
+    grid-template-rows: 50px repeat(14, 1fr); /* 1 row for headers and 14 for time slots */
+    gap: 1px;
+  }
+  
+  .schedule-container > div {
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .time-slot {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  .day-header {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  .event {
+    background-color: #2196F3;
+    color: white;
+    text-align: center;
+  }
+  
+  .empty-slot {
+    background-color: white;
+  }
+  
