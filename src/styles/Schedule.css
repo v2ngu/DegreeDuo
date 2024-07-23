@@ -86,3 +86,9 @@
     background-color: white;
   }
   
+  .event-slot {
+    background-color: #ffcc80;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
