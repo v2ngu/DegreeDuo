@@ -1,0 +1,3 @@
+AZURE_SUBSCRIPTION_ID=aa6ea5aa-9bcf-433b-9589-0835c2e749ab
+AZURE_TENANT_ID=31d7e2a5-bdd8-414e-9e97-bea998ebdfe1
+DATABASE_CONNECTION_STRING=Server=tcp:degreeduoserver.database.windows.net,1433;Initial Catalog=degreeduo;Persist Security Info=False;User ID=degreeduoadmin;Password=Uw|ly848<w\zE.aM/CSe;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
