@@ -9,7 +9,7 @@ const CoursesList = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Schedule', {
-          baseURL: 'http://localhost:4280' // Use the unified URL
+          baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net/' // Use the unified URL
         });
         setCourses(response.data.value); // Adjust if your API structure is different
       } catch (error) {
