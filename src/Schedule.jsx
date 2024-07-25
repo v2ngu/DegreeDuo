@@ -10,12 +10,6 @@ const times = [
   '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM'
 ];
 
-
-
-
-
-
-
 function Schedule() {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
@@ -25,16 +19,16 @@ function Schedule() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Schedule', {
-          baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net' // Use the unified URL
+          baseURL: 'http://localhost:4280'
         });
-        setCourses(response.data.value); // Update the state with the fetched courses
+        setCourses(response.data.value);
       } catch (error) {
-        setError(error.message); // Update the state with the error message
+        setError(error.message);
       }
     };
 
-    fetchCourses(); // Call the function to fetch courses
-  }, []); // Empty dependency array means this effect runs once after the initial render
+    fetchCourses();
+  }, []);
 
   const renderScheduleGrid = () => {
     const grid = [];
@@ -43,13 +37,31 @@ function Schedule() {
     times.forEach((time, timeIndex) => {
       grid.push(<div key={`time-${time}`} className="time-slot">{time}</div>);
 
-      // Add empty slots for each day
       days.forEach(day => {
-        // Check if there's an event at this time and day
-        const course = courses.find(course => course.day === day && course.time === time);
+        // Check if there's a course at this time and day
+        const course = courses.find(course => {
+          const courseDays = course.DAYS.split('');
+          const courseStartTime = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}`);
+          const courseEndTime = new Date(`1970-01-01T${convertTo24HourFormat(course.ENDTIME)}`);
+          const gridTime = new Date(`1970-01-01T${convertTo24HourFormat(time)}`);
+          const courseDayMapping = {
+            'M': 'Monday',
+            'T': 'Tuesday',
+            'W': 'Wednesday',
+            'Th': 'Thursday',
+            'F': 'Friday'
+          };
+
+          return courseDays.some(cd => courseDayMapping[cd] === day) &&
+                 gridTime >= courseStartTime &&
+                 gridTime < courseEndTime;
+        });
+
         if (course) {
           grid.push(
-            <div key={`${day}-${time}`} className="event-slot">{course.name}</div>
+            <div key={`${day}-${time}`} className="event-slot">
+              {course.NAME}
+            </div>
           );
         } else {
           grid.push(
@@ -61,7 +73,6 @@ function Schedule() {
 
     return grid;
   };
-
 
   const navigateTo = (path) => {
     navigate(path);
@@ -77,6 +88,21 @@ function Schedule() {
     return days.map(day => (
       <div key={day} className="day-header">{day}</div>
     ));
+  };
+
+  const convertTo24HourFormat = (time12h) => {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+
+    if (hours === '12') {
+      hours = '00';
+    }
+
+    if (modifier === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    return `${hours}:${minutes}`;
   };
 
   return (
