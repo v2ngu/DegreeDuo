@@ -13,6 +13,7 @@ const times = [
 function Schedule() {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,7 +60,11 @@ function Schedule() {
 
         if (course) {
           grid.push(
-            <div key={`${day}-${time}`} className="event-slot">
+            <div 
+              key={`${day}-${time}`} 
+              className="event-slot" 
+              onClick={() => setSelectedCourse(course)}
+            >
               {course.NAME}
             </div>
           );
@@ -105,23 +110,52 @@ function Schedule() {
     return `${hours}:${minutes}`;
   };
 
+  const closeModal = () => {
+    setSelectedCourse(null);
+  };
+
+  const removeCourse = (courseId) => {
+    setCourses(courses.filter(course => course.ID !== courseId));
+    closeModal();
+  };
+
+  const renderCourseModal = () => {
+    if (!selectedCourse) return null;
+
+    return (
+      <div className="modal-overlay" onClick={closeModal}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <h2>{selectedCourse.NAME}</h2>
+          <p>Professor: {selectedCourse.PROFESSOR}</p>
+          <p>Days: {selectedCourse.DAYS}</p>
+          <p>Time: {selectedCourse.STARTTIME} - {selectedCourse.ENDTIME}</p>
+          <div className="modal-buttons">
+            <button onClick={closeModal}>Close</button>
+            <button onClick={() => removeCourse(selectedCourse.ID)}>Remove</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div>
-      <div className="title-container">
-        <div className="title">degreeDuo</div>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="title-container mb-4">
+        <div className="title text-10xl font-bold text-center">degreeDuo</div>
       </div>
-      <div className="subtitle-container">
-        <div className="subtitle">Fall 2025 Schedule</div>
+      <div className="subtitle-container mb-8">
+        <div className="subtitle text-xl text-center text-gray-700">Fall 2025 Schedule</div>
       </div>
-      <div className="button-container">
-        <button className="left-button" onClick={() => navigateTo("/schedule")}>Schedule</button>
-        <button className="login-button" onClick={() => navigateTo("/coursesearch")}>Search/Add Classes</button>
+      <div className="button-container flex justify-center space-x-4 mb-8">
+        <button className="left-button bg-blue-500 text-white px-4 py-2 rounded shadow-md hover:bg-blue-600" onClick={() => navigateTo("/schedule")}>Schedule</button>
+        <button className="login-button bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600" onClick={() => navigateTo("/coursesearch")}>Search/Add Classes</button>
       </div>
-      <div className="schedule-container">
-        <div className="time-slot"></div>
+      <div className="schedule-container bg-white p-4 rounded shadow-md">
+        <div className="time-slot mb-4"> </div>
         {renderDayHeaders()}
         {renderScheduleGrid()}
       </div>
+      {renderCourseModal()}
     </div>
   );
 }
