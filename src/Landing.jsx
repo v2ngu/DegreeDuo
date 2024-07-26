@@ -10,7 +10,9 @@ function LandingPage() {
 
   return (
     <div className="flex flex-col items-center justify-between h-[90vh]">
-      <div className="text-[#bf5701] text-10xl font-jura mb-5">degreeDuo</div>
+      <div>
+        <div className="text-[#bf5701] text-9xl font-jura mb-5">degreeDuo</div>
+      </div>
       <div className="flex flex-col items-center mb-[40vh]">
         <button 
           className="rounded-lg w-52 h-12 mb-5 bg-black text-white border-none cursor-pointer transition ease-in-out duration-300 hover:bg-[#333]" 
@@ -32,7 +34,7 @@ function LandingPage() {
         </button>
       </div>
       <div className="w-full bg-[#e0e0e0] text-center py-2 fixed bottom-0 left-0">
-        Welcome to degreeDuo
+        Welcome to degreeDuo - a platform for students to find their ideal study buddy!
       </div>
     </div>
   );

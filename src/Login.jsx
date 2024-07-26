@@ -9,7 +9,7 @@ function Login(){
             <div className = "landing-container">
 
                 <div>
-                    <h1 className="title">degreeDuo</h1>
+                    <div className="text-[#bf5701] text-9xl font-jura mb-5">degreeDuo</div>
                 </div>
                 <div className="login-container">
                     <div className="back-button-container">
