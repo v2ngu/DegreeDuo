@@ -9,27 +9,32 @@ function LandingPage() {
   };
 
   return (
-    <>
-      <div className="landing-container">
-        <div>
-          <h1 className="title">degreeDuo</h1>
-        </div>
-        <div className="button-container">
-          <button onClick={() => handleNavigation('/guestpopup')} className="guest-button">
-            USE DEGREE PLANNER AS GUEST
-          </button>
-          <button onClick={() => handleNavigation('/login')} className="login-button">
-            Login
-          </button>
-          <button onClick={() => handleNavigation('/register')} className="register-button">
-            Register
-          </button>
-        </div>
+    <div className="flex flex-col items-center justify-between h-[90vh]">
+      <div className="text-[#bf5701] text-10xl font-jura mb-5">degreeDuo</div>
+      <div className="flex flex-col items-center mb-[40vh]">
+        <button 
+          className="rounded-lg w-52 h-12 mb-5 bg-black text-white border-none cursor-pointer transition ease-in-out duration-300 hover:bg-[#333]" 
+          onClick={() => handleNavigation("/guestpopup")}
+        >
+          Continue as Guest
+        </button>
+        <button 
+          className="rounded-lg w-52 h-12 mb-5 bg-[#FFA652] border-none cursor-pointer transition ease-in-out duration-300 hover:bg-[#FF8C00]" 
+          onClick={() => handleNavigation("/login")}
+        >
+          Login
+        </button>
+        <button 
+          className="rounded-lg w-52 h-12 mb-5 bg-[#FFA652] border-none cursor-pointer transition ease-in-out duration-300 hover:bg-[#FF8C00]" 
+          onClick={() => handleNavigation("/register")}
+        >
+          Register
+        </button>
       </div>
-      <div className="banner">
-        Inspire LLC™
+      <div className="w-full bg-[#e0e0e0] text-center py-2 fixed bottom-0 left-0">
+        Welcome to degreeDuo
       </div>
-    </>
+    </div>
   );
 }
 
