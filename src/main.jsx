@@ -8,6 +8,7 @@ import CourseSearch from './CourseSearch.jsx';
 import GuestProfile from './GuestPopUp.jsx';
 import CoursesList from './CoursesList.jsx';
 import Schedule from './Schedule.jsx'
+import './index.css'; // Ensure this import is at the top
 
 const router = createBrowserRouter([
   {
