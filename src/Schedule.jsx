@@ -20,6 +20,7 @@ function Schedule() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Schedule', {
+          //http:local Host
           baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net'
         });
         setCourses(response.data.value);
