@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/Schedule.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Title from './Components/Title.jsx';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const times = [
@@ -9,6 +10,18 @@ const times = [
   '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
   '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM'
 ];
+
+
+// const navigate = useNavigate();
+
+const navigateTo = (path) => {
+  navigate(path);
+};
+
+const handleTitleClick = () => {
+  navigate('/');
+};
+
 
 function Schedule() {
   const [courses, setCourses] = useState([]);
@@ -20,7 +33,7 @@ function Schedule() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Schedule', {
-          // https: local host
+          // https://witty-stone-04723010f.5.azurestaticapps.net
           baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net'
         });
         setCourses(response.data.value);
@@ -142,7 +155,7 @@ function Schedule() {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="title-container mb-4">
-        <div className="title text-10xl font-bold text-center">degreeDuo</div>
+        <Title text="degreeDuo" onClick={handleTitleClick} />
       </div>
       <div className="subtitle-container mb-8">
         <div className="subtitle text-xl text-center text-gray-700">Fall 2025 Schedule</div>
