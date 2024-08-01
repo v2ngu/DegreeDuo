@@ -41,6 +41,19 @@
           "actions": ["read"]
         }
       ]
+    },
+    "Courses": {
+      "source": "dbo.courses",
+      "rest": {
+        "methods": ["get", "post", "put", "delete"],
+        "path": "/Courses"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        }
+      ]
     }
   }
 }

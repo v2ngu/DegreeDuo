@@ -11,6 +11,14 @@ const CourseSearch = () => {
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
+  const navigateTo = (path) => {
+    navigate(path);
+  };
+
+  const handleTitleClick = () => {
+    navigate('/');
+  };
+
   const handleSearch = (searchType, searchParams) => {
     console.log(`Searching by ${searchType} with params:`, searchParams);
     // Simulate search logic
@@ -19,7 +27,7 @@ const CourseSearch = () => {
 
   return (
     <div style={styles.container}>
-      <Title />
+                 <Title text="degreeDuo" onClick={handleTitleClick} />
       <h1 style={styles.title}>Fall 2024 Schedule</h1>
       <div style={styles.navBar}>
         <div style={styles.navItem} onClick={() => navigate('/schedule')}>SCHEDULE</div>
