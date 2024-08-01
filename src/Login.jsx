@@ -1,14 +1,25 @@
 import BackComponent from './Components/BackComponent';
+import Title from './Components/Title';
+import { useNavigate } from 'react-router-dom';
 
 import './styles/Login.css';
 function Login(){
     
+  const navigate = useNavigate();
+
+  const navigateTo = (path) => {
+    navigate(path);
+  };
+
+  const handleTitleClick = () => {
+    navigate('/');
+  };
 
     return (
         <>
           <div className="flex flex-col items-center justify-between h-screen">
             <div>
-              <div className="text-[#bf5701] text-9xl font-jura mb-5">degreeDuo</div>
+            <Title text="degreeDuo" onClick={handleTitleClick} />
             </div>
             <div className="w-full max-w-sm p-8 space-y-6 bg-gray-100 rounded shadow-md">
               <div className="mb-4">

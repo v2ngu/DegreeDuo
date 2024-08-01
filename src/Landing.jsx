@@ -1,4 +1,6 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Title from './Components/Title.jsx';
 import './styles/Landing.css';
 
 function LandingPage() {
@@ -7,11 +9,11 @@ function LandingPage() {
   const handleNavigation = (path) => {
     navigate(path);
   };
-
+  
   return (
     <div className="flex flex-col items-center justify-between h-[90vh]">
       <div>
-        <div className="text-[#bf5701] text-9xl font-jura mb-5">degreeDuo</div>
+        <Title />
       </div>
       <div className="flex flex-col items-center mb-[40vh]">
         <button 
