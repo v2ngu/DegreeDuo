@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import '../styles/SearchByCoreCurriculumAndFlags.css';
+
 
 function SearchByCoreCurriculumAndFlags({ handleSearch, results }) {
-  const [coreCurriculum, setCoreCurriculum] = useState();
+  const [coreCurriculum, setCoreCurriculum] = useState('');
   const [flags, setFlags] = useState([]);
 
   const coreCurriculums = [
@@ -41,33 +43,35 @@ function SearchByCoreCurriculumAndFlags({ handleSearch, results }) {
   return (
     <div className="tab-content active" role="tabpanel">
       <div className="search-row">
-        <select
-          className="dropdown"
-          value={coreCurriculum}
-          onChange={(e) => setCoreCurriculum(e.target.value)}
-        >
-          <option value="">Select Core Curriculum</option>
-          {coreCurriculums.map((cc, index) => (
-            <option key={index} value={cc}>
-              {cc}
-            </option>
-          ))}
-        </select>
+        <div className="search-bar">
+          <select
+            className="dropdown"
+            value={coreCurriculum}
+            onChange={(e) => setCoreCurriculum(e.target.value)}
+          >
+            <option value="">Choose Core Curriculum</option>
+            {coreCurriculums.map((cc, index) => (
+              <option key={index} value={cc}>
+                {cc}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="checkbox-group">
           {flagOptions.map((flag) => (
-            <div key={flag} className="checkbox-wrapper">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={flags.includes(flag)}
-                  onChange={() => handleFlagChange(flag)}
-                />
-                {flag}
-              </label>
+            <div
+              key={flag}
+              className={`checkbox-wrapper ${flags.includes(flag) ? 'selected' : ''}`}
+              onClick={() => handleFlagChange(flag)}
+            >
+              <div className="checkbox">
+                {flags.includes(flag) && <span className="checkmark">✓</span>}
+              </div>
+              <label className="checkbox-label">{flag}</label>
             </div>
           ))}
         </div>
-        <button className="search-button" onClick={onSearch}>Search</button>
+        <button className="search-button" onClick={onSearch}>SEARCH</button>
       </div>
     </div>
   );

@@ -12,16 +12,6 @@ const times = [
 ];
 
 
-// const navigate = useNavigate();
-
-const navigateTo = (path) => {
-  navigate(path);
-};
-
-const handleTitleClick = () => {
-  navigate('/');
-};
-
 
 function Schedule() {
   const [courses, setCourses] = useState([]);
@@ -29,10 +19,18 @@ function Schedule() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const navigate = useNavigate();
 
+  
+  const handleTitleClick = () => {
+    navigate('/');
+  };
+  
+
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Schedule', {
+          // baseURL: 'http://localhost:4280'
           baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net'
         });
         setCourses(response.data.value);
@@ -156,12 +154,10 @@ function Schedule() {
       <div className="title-container mb-4">
         <Title text="degreeDuo" onClick={handleTitleClick} />
       </div>
-      <div className="subtitle-container mb-8">
-        <div className="subtitle text-xl text-center text-gray-700">Fall 2025 Schedule</div>
-      </div>
-      <div className="button-container flex justify-center space-x-4 mb-8">
-        <button className="left-button bg-blue-500 text-white px-4 py-2 rounded shadow-md hover:bg-blue-600" onClick={() => navigateTo("/schedule")}>Schedule</button>
-        <button className="login-button bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600" onClick={() => navigateTo("/coursesearch")}>Search/Add Classes</button>
+      <h1 style={styles.title}>Fall 2024 Schedule</h1>
+      <div style={styles.navBar}>
+        <div style={styles.navItem} onClick={() => navigate('/schedule')}>SCHEDULE</div>
+        <div style={{ ...styles.navItem, ...styles.activeNavItem }} onClick={() => navigate('/coursesearch')}>SEARCH/ADD CLASSES</div>
       </div>
       <div className="schedule-container bg-white p-4 rounded shadow-md">
         <div className="time-slot mb-4"> </div>
@@ -172,5 +168,59 @@ function Schedule() {
     </div>
   );
 }
+
+const styles = {
+  container: {
+    fontFamily: 'Jura, sans-serif',
+    textAlign: 'center',
+    padding: '20px',
+  },
+  title: {
+    color: '#bf5701',
+    fontSize: '2em',
+    textAlign: 'center',
+  },
+  navBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '20px',
+  },
+  navItem: {
+    padding: '10px 20px',
+    fontSize: '1.2em',
+    cursor: 'pointer',
+  },
+  activeNavItem: {
+    backgroundColor: '#e0e0e0',
+  },
+  tabs: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    marginBottom: '20px',
+    borderBottom: '1px solid #ccc',
+  },
+  tab: {
+    padding: '10px 20px',
+    cursor: 'pointer',
+  },
+  activeTab: {
+    fontWeight: 'bold',
+    borderBottom: '2px solid #bf5701',
+  },
+  tabContent: {
+    marginBottom: '20px',
+  },
+  results: {
+    textAlign: 'center',
+  },
+  resultsTitle: {
+    fontSize: '1.5em',
+    marginBottom: '10px',
+  },
+  noResults: {
+    color: 'red',
+    fontSize: '1.2em',
+  },
+};
 
 export default Schedule;
