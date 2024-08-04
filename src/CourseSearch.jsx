@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Title from './Components/Title.jsx';
 import SearchByDepartmentAndLevel from './Components/SearchByDepartmentAndLevel';
@@ -10,7 +11,9 @@ const CourseSearch = () => {
   const [activeTab, setActiveTab] = useState('Department and Level');
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
-
+  const [courses, setCourses] = useState([]);
+  const [error, setError] = useState(null);
+  
   const navigateTo = (path) => {
     navigate(path);
   };
@@ -19,12 +22,53 @@ const CourseSearch = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get('/data-api/rest/Courses', {
+          baseURL: 'http://localhost:4280'
+          // baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net'
+        });
+        setCourses(response.data.value);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchCourses();
+  }, []);
+
+
   const handleSearch = (searchType, searchParams) => {
     console.log(`Searching by ${searchType} with params:`, searchParams);
     // Simulate search logic
-    setResults([]);
+    let filteredResults = [];
+    switch (searchType) {
+      case 'Department and Level':
+        filteredResults = courses.filter(course => 
+          course.DEPARTMENT === searchParams.department && 
+          course.LEVEL === searchParams.level
+        );
+        break;
+      case 'Core Curriculum and Flags':
+        filteredResults = courses.filter(course => 
+          course.CORECURRICULUM === searchParams.coreCurriculum && 
+          course.FLAGS.includes(searchParams.flags)
+        );
+        break;
+      case 'Unique Number':
+        filteredResults = courses.filter(course => 
+          course.COURSEID === searchParams.uniqueNumber
+        );
+        break;
+      case 'Class Suggestions':
+        // Implement your logic for class suggestions
+        break;
+      default:
+        break;
+    }
+    setResults(filteredResults);
   };
-
+  
   return (
     <div style={styles.container}>
                  <Title text="degreeDuo" onClick={handleTitleClick} />

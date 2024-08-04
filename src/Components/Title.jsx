@@ -13,7 +13,6 @@ const Title = ({ text, onClick }) => {
 };
 
 Title.propTypes = {
-  text: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 
