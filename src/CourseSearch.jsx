@@ -1,33 +1,85 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Title from './Components/Title.jsx';
 import SearchByDepartmentAndLevel from './Components/SearchByDepartmentAndLevel';
 import SearchByCoreCurriculumAndFlags from './Components/SearchByCoreCurriculumAndFlags';
 import ClassSuggestion from './Components/ClassSuggestion';
 import SearchByUniqueCourseNumber from './Components/SearchByUniqueCourseNumber';
+import './styles/CourseSearch.css'; // Import the CSS file
 
 const CourseSearch = () => {
   const [activeTab, setActiveTab] = useState('Department and Level');
   const [results, setResults] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  const navigateTo = (path) => {
-    navigate(path);
-  };
 
   const handleTitleClick = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get('/data-api/rest/Courses', {
+          baseURL: 'http://localhost:4280' // Adjust this URL as needed
+        });
+        
+        // Check if the response is JSON
+        if (response.headers['content-type'].includes('application/json')) {
+          setCourses(response.data.value);
+        } else {
+          throw new Error('Unexpected response format');
+        }
+      } catch (error) {
+        console.error('Error fetching courses:', error.message);
+        setError('Failed to fetch courses. Please try again later.');
+      }
+    };
+
+    fetchCourses();
+  }, []); // Empty dependency array means this runs once on mount
+
+  useEffect(() => {
+    // Reset results when the active tab changes
+    setResults([]);
+  }, [activeTab]);
+
   const handleSearch = (searchType, searchParams) => {
     console.log(`Searching by ${searchType} with params:`, searchParams);
-    // Simulate search logic
-    setResults([]);
+    let filteredResults = [];
+    switch (searchType) {
+      case 'Department and Level':
+        filteredResults = courses.filter(course => 
+          course.Department === searchParams.department && 
+          course.Level === searchParams.level
+        );
+        break;
+      case 'Core Curriculum and Flags':
+        filteredResults = courses.filter(course => 
+          course.CoreCurriculum === searchParams.coreCurriculum && 
+          course.Flags.includes(searchParams.flags)
+        );
+        break;
+      case 'Unique Number':
+        filteredResults = courses.filter(course => 
+          course['Course ID'] ==   searchParams.uniqueNumber,
+        );
+        console.log(filteredResults)
+        break;
+      case 'Class Suggestions':
+        // Implement your logic for class suggestions
+        break;
+      default:
+        break;
+    }
+    setResults(filteredResults);
   };
 
   return (
     <div style={styles.container}>
-                 <Title text="degreeDuo" onClick={handleTitleClick} />
+      <Title text="degreeDuo" onClick={handleTitleClick} />
       <h1 style={styles.title}>Fall 2024 Schedule</h1>
       <div style={styles.navBar}>
         <div style={styles.navItem} onClick={() => navigate('/schedule')}>SCHEDULE</div>
@@ -40,21 +92,34 @@ const CourseSearch = () => {
         <div style={{ ...styles.tab, ...(activeTab === 'Class Suggestions' ? styles.activeTab : {}) }} onClick={() => setActiveTab('Class Suggestions')}>CLASS SUGGESTIONS</div>
       </div>
       <div style={styles.tabContent}>
-        {activeTab === 'Department and Level' && <SearchByDepartmentAndLevel handleSearch={handleSearch} results={results} />}
-        {activeTab === 'Core Curriculum and Flags' && <SearchByCoreCurriculumAndFlags handleSearch={handleSearch} results={results} />}
-        {activeTab === 'Unique Number' && <SearchByUniqueCourseNumber handleSearch={handleSearch} results={results} />}
+        {activeTab === 'Department and Level' && <SearchByDepartmentAndLevel handleSearch={handleSearch} />}
+        {activeTab === 'Core Curriculum and Flags' && <SearchByCoreCurriculumAndFlags handleSearch={handleSearch} />}
+        {activeTab === 'Unique Number' && <SearchByUniqueCourseNumber handleSearch={handleSearch} />}
         {activeTab === 'Class Suggestions' && <ClassSuggestion />}
       </div>
-      <div style={styles.results}>
-        <h2 style={styles.resultsTitle}>RESULTS</h2>
+      <div className="results">
+        <h2 className="resultsTitle">RESULTS</h2>
         {results.length === 0 ? (
-          <p style={styles.noResults}>**NO SEARCH RESULTS**</p>
+          <p className="noResults">**NO SEARCH RESULTS**</p>
         ) : (
-          <ul>
-            {results.map((result, index) => (
-              <li key={index}>{result}</li>
+          <div className="results-content">
+            {results.map((course) => (
+              <div key={course.CourseID} className="course-item">
+                <div className="course-name">{course.CourseName}</div>
+                <div className="course-details">
+                <div className="course-detail">Department: {course.Department}</div>
+                  <div className="course-detail">Course ID: {course['Course ID']}</div>
+                  <div className="course-detail">Day: {course.Day}</div>
+                  <div className="course-detail">Hour: {course.Hour}</div>
+                  <div className="course-detail">Room: {course.Room}</div>
+                  <div className="course-detail">Instruction Mode: {course['Instruction Mode']}</div>
+                  <div className="course-detail">Instructor Name: {course['Instructor Name']}</div>
+                  <div className="course-detail">Status: {course.Status}</div>
+                  <div className="course-detail">Flags: {course.Flags}</div>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>
@@ -100,17 +165,6 @@ const styles = {
   },
   tabContent: {
     marginBottom: '20px',
-  },
-  results: {
-    textAlign: 'center',
-  },
-  resultsTitle: {
-    fontSize: '1.5em',
-    marginBottom: '10px',
-  },
-  noResults: {
-    color: 'red',
-    fontSize: '1.2em',
   },
 };
 

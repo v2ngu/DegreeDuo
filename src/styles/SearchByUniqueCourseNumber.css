@@ -1,0 +1,29 @@
+.input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  width: 300px; /* Adjust as needed */
+}
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 15px;
+  border: none;
+  background-color: #FFA652; /* Light orange */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #FF8C00; /* Darker orange on hover */
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
