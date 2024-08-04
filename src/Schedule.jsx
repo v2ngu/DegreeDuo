@@ -5,10 +5,18 @@ import axios from 'axios';
 import Title from './Components/Title.jsx';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+// const times = [
+//   '8:00 AM', '8:30 AM',  '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+//   '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+//   '6:00 PM', '7:00 PM', '8:00 PM',
+// ];
+
 const times = [
-  '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-  '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
-  '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM'
+  '8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM',
+  '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
+  '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM',
+  '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM',
+  '8:00 PM', '8:30 PM',
 ];
 
 
@@ -44,13 +52,12 @@ function Schedule() {
 
   const renderScheduleGrid = () => {
     const grid = [];
-
+  
     // Add time slots to the first column
     times.forEach((time, timeIndex) => {
       grid.push(<div key={`time-${time}`} className="time-slot">{time}</div>);
-
+  
       days.forEach(day => {
-        // Check if there's a course at this time and day
         const course = courses.find(course => {
           const courseDays = course.DAYS.split('');
           const courseStartTime = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}`);
@@ -63,12 +70,12 @@ function Schedule() {
             'Th': 'Thursday',
             'F': 'Friday'
           };
-
+  
           return courseDays.some(cd => courseDayMapping[cd] === day) &&
                  gridTime >= courseStartTime &&
                  gridTime < courseEndTime;
         });
-
+  
         if (course) {
           grid.push(
             <div 
@@ -86,9 +93,10 @@ function Schedule() {
         }
       });
     });
-
+  
     return grid;
   };
+  
 
   const navigateTo = (path) => {
     navigate(path);
@@ -117,7 +125,7 @@ function Schedule() {
     if (modifier === 'PM') {
       hours = parseInt(hours, 10) + 12;
     }
-
+    console.log(hours, minutes);
     return `${hours}:${minutes}`;
   };
 

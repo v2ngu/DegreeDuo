@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import '../styles/SearchByUniqueCourseNumber.css'; // Import CSS if needed
 
 function SearchByUniqueCourseNumber({ handleSearch, results }) {
-  const [uniqueNumber, setUniqueNumber] = useState();
+  const [uniqueNumber, setUniqueNumber] = useState('');
 
   const onSearch = () => {
     handleSearch('Unique Number', { uniqueNumber });
