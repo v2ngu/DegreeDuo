@@ -5,12 +5,6 @@ import axios from 'axios';
 import Title from './Components/Title.jsx';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-// const times = [
-//   '8:00 AM', '8:30 AM',  '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-//   '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
-//   '6:00 PM', '7:00 PM', '8:00 PM',
-// ];
-
 const times = [
   '8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM',
   '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
@@ -19,20 +13,15 @@ const times = [
   '8:00 PM', '8:30 PM',
 ];
 
-
-
 function Schedule() {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const navigate = useNavigate();
 
-  
   const handleTitleClick = () => {
     navigate('/');
   };
-  
-
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -50,19 +39,33 @@ function Schedule() {
     fetchCourses();
   }, []);
 
+  const convertTo24HourFormat = (time12h) => {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+    hours = parseInt(hours, 10);
+
+    if (modifier === 'PM' && hours < 12) {
+      hours += 12;
+    }
+    if (modifier === 'AM' && hours === 12) {
+      hours = 0;
+    }
+
+    return `${hours.toString().padStart(2, '0')}:${minutes}`;
+  };
+
   const renderScheduleGrid = () => {
     const grid = [];
-  
-    // Add time slots to the first column
+
     times.forEach((time, timeIndex) => {
       grid.push(<div key={`time-${time}`} className="time-slot">{time}</div>);
-  
+
       days.forEach(day => {
         const course = courses.find(course => {
           const courseDays = course.DAYS.split('');
-          const courseStartTime = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}`);
-          const courseEndTime = new Date(`1970-01-01T${convertTo24HourFormat(course.ENDTIME)}`);
-          const gridTime = new Date(`1970-01-01T${convertTo24HourFormat(time)}`);
+          const courseStartTime = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}:00`);
+          const courseEndTime = new Date(`1970-01-01T${convertTo24HourFormat(course.ENDTIME)}:00`);
+          const gridTime = new Date(`1970-01-01T${convertTo24HourFormat(time)}:00`);
           const courseDayMapping = {
             'M': 'Monday',
             'T': 'Tuesday',
@@ -70,12 +73,12 @@ function Schedule() {
             'Th': 'Thursday',
             'F': 'Friday'
           };
-  
+
           return courseDays.some(cd => courseDayMapping[cd] === day) &&
                  gridTime >= courseStartTime &&
                  gridTime < courseEndTime;
         });
-  
+
         if (course) {
           grid.push(
             <div 
@@ -93,40 +96,18 @@ function Schedule() {
         }
       });
     });
-  
+
     return grid;
   };
-  
 
   const navigateTo = (path) => {
     navigate(path);
-  };
-
-  const renderTimeSlots = () => {
-    return times.map(time => (
-      <div key={time} className="time-slot">{time}</div>
-    ));
   };
 
   const renderDayHeaders = () => {
     return days.map(day => (
       <div key={day} className="day-header">{day}</div>
     ));
-  };
-
-  const convertTo24HourFormat = (time12h) => {
-    const [time, modifier] = time12h.split(' ');
-    let [hours, minutes] = time.split(':');
-
-    if (hours === '12') {
-      hours = '00';
-    }
-
-    if (modifier === 'PM') {
-      hours = parseInt(hours, 10) + 12;
-    }
-    console.log(hours, minutes);
-    return `${hours}:${minutes}`;
   };
 
   const closeModal = () => {
@@ -168,7 +149,7 @@ function Schedule() {
         <div style={{ ...styles.navItem, ...styles.activeNavItem }} onClick={() => navigate('/coursesearch')}>SEARCH/ADD CLASSES</div>
       </div>
       <div className="schedule-container bg-white p-4 rounded shadow-md">
-        <div className="time-slot mb-4"> </div>
+        <div className="time-slot mb-4"></div>
         {renderDayHeaders()}
         {renderScheduleGrid()}
       </div>
