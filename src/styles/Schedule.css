@@ -53,7 +53,7 @@
 
 .schedule-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 equal columns */
+  grid-template-columns: 100px repeat(5, 1fr); /* 6 equal columns */
   grid-template-rows: 20px repeat(28, 1fr); /* 1 row for headers and 28 for half-hour slots */
   gap: 1px;
 }
@@ -71,7 +71,9 @@
   font-weight: bold;
   font-size: 0.8em;
   position: relative;
-  border: none;
+  border: none !important;
+  bottom:50%;
+  left:20%;
 }
 
 .day-header {
