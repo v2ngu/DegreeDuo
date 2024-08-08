@@ -82,8 +82,8 @@ const CourseSearch = () => {
       <Title text="degreeDuo" onClick={handleTitleClick} />
       <h1 style={styles.title}>Fall 2024 Schedule</h1>
       <div style={styles.navBar}>
-        <div style={styles.navItem} onClick={() => navigate('/schedule')}>SCHEDULE</div>
-        <div style={{ ...styles.navItem, ...styles.activeNavItem }} onClick={() => navigate('/search-add-classes')}>SEARCH/ADD CLASSES</div>
+        <div style={styles.navItem} onClick={() => navigate('/degreeduocontain')}>SCHEDULE</div>
+        <div style={{ ...styles.navItem, ...styles.activeNavItem }} onClick={() => navigate('/coursesearch')}>SEARCH/ADD CLASSES</div>
       </div>
       <div style={styles.tabs}>
         <div style={{ ...styles.tab, ...(activeTab === 'Department and Level' ? styles.activeTab : {}) }} onClick={() => setActiveTab('Department and Level')}>SEARCH BY DEPARTMENT AND LEVEL</div>
