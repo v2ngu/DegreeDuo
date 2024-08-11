@@ -4,14 +4,13 @@ import CalendarGrid from '../Components/CalendarGrid';
 import TimeSlot from '../Components/TimeSlot';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function Calendar() {
   const navigate = useNavigate();
-  
+
   const navigateTo = (path) => {
-      navigate(path);
-    };
+    navigate(path);
+  };
+
   return (
     <div className="p-4 bg-white w-full">
       <header className="flex justify-between items-center mb-4">
@@ -31,8 +30,6 @@ function Calendar() {
           <CalendarWeek />
           <CalendarGrid />
         </div>
-        
-
       </section>
     </div>
   );

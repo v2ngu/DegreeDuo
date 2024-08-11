@@ -15,26 +15,26 @@ import DegreeDuoContainer from './Components/DegreeDuoContainer.jsx';
 import DegreeDuoContain from './DegreeDuoCalendar/DegreeDuoContainer.jsx';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <LandingPage />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
+  // {
+  //   path: '/degreeduocontain',
+  //   element: <LandingPage />,
+  // },
+  // {
+  //   path: '/login',
+  //   element: <Login />,
+  // },
+  // {
+  //   path: '/register',
+  //   element: <Register />,
+  // },
   {
     path: '/coursesearch',
     element: <CourseSearch />,
   },
-  {
-    path: '/guestpopup',
-    element: <GuestProfile />,
-  },
+  // {
+  //   path: '/guestpopup',
+  //   element: <GuestProfile />,
+  // },
   {
     path: '/courselist',
     element: <CoursesList />,
@@ -51,14 +51,14 @@ const router = createBrowserRouter([
   path: '/calendar',
   element: <Calendar />,
   },
+  // {
+  //   path: '/degreeduocontainer',
+  //   element: <DegreeDuoContainer />,
+  //   },
   {
-    path: '/degreeduocontainer',
-    element: <DegreeDuoContainer />,
-    },
-    {
-      path: '/degreeduocontain',
-      element: <DegreeDuoContain />,
-      },
+  path: '/',
+  element: <DegreeDuoContain />,
+  },
 
 ]);
 

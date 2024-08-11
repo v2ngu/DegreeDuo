@@ -1,57 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import CourseDay from './CourseDay';
 
-const courseDays = [
-  {
-    day: 'MON-WED-FRI',
-    hours: 6,
-    courses: [
-      {
-        code: 'C S 329E',
-        name: 'ELEMENTS OF DATABASE',
-        instructor: 'PALACIOS, JOAQUIN MARCOS',
-        time: '09:00 – 10:30 AM',
-        color: 'bg-blue-500'
-      },
-      {
-        code: 'C S 303E',
-        name: 'ELEMS OF COMPUTERS/PROGRAMMING',
-        instructor: 'KAUR, AMRITA',
-        time: '10:30 – 12:30 AM',
-        color: 'bg-emerald-400'
-      }
-    ]
-  },
-  {
-    day: 'TUES-THURS',
-    hours: 10,
-    courses: [
-      {
-        code: 'C S 439',
-        name: 'PRINCIPLES OF COMPUTER SYS-C S',
-        instructor: 'ELNOZAHY, MOOTAZ N',
-        time: '10:00 – 12:00 AM',
-        color: 'bg-amber-400'
-      },
-      {
-        code: 'C S 331',
-        name: 'C S 331 ALGORITHMS AND COMPLEXITY',
-        instructor: 'PLAXTON, C GREG',
-        time: '12:00 – 02:00 PM',
-        color: 'bg-red-500'
-      },
-      {
-        code: 'C S 311H',
-        name: 'DISCRETE MATH COMP SCI: HONORS',
-        instructor: 'CHATTERJEE, SIDDHARTHA',
-        time: '05:00 – 6:30 PM',
-        color: 'bg-pink-500'
-      }
-    ]
-  }
-];
-
 function CourseList() {
+  const [courseDays, setCourseDays] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get('/data-api/rest/Schedule', {
+          // baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net'
+          baseURL: 'http://localhost:4280'
+        });
+        const courses = response.data.value;
+
+        const groupedCourses = groupCoursesByDays(courses);
+        setCourseDays(groupedCourses);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  const groupCoursesByDays = (courses) => {
+    const grouped = {};
+
+    courses.forEach((course) => {
+      const days = course.DAYS; // Use the entire DAYS string for grouping (e.g., 'MWF')
+
+      if (!grouped[days]) {
+        grouped[days] = {
+          day: days, // Keep the DAYS string as the identifier
+          hours: 0,
+          courses: []
+        };
+      }
+
+      const start = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}Z`);
+      const end = new Date(`1970-01-01T${convertTo24HourFormat(course.ENDTIME)}Z`);
+      const hours = (end - start) / (1000 * 60 * 60); // Calculate hours difference
+      grouped[days].hours += hours;
+      grouped[days].courses.push({
+        id: course.ID,
+        code: course.ID.match(/^[A-Z\s]+\d+[A-Z]?/)[0], 
+        name: course.NAME,
+        instructor: course.PROFESSOR,
+        time: `${course.STARTTIME} - ${course.ENDTIME}`,
+        color: 'bg-gray-500' // Adjust color as needed
+      });
+    });
+
+    return Object.values(grouped);
+  };
+
+  const convertTo24HourFormat = (time) => {
+    const [timePart, modifier] = time.split(' ');
+    let [hours, minutes] = timePart.split(':');
+    if (hours === '12') {
+      hours = '00';
+    }
+    if (modifier === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+    }
+    return `${hours}:${minutes}`;
+  };
+
   return (
     <section className="flex overflow-hidden flex-col pb-48 mt-4 w-full">
       <div className="flex flex-col mb-0 w-full">
@@ -61,11 +77,14 @@ function CourseList() {
           </h3>
           <div className="flex gap-1 items-start self-stretch my-auto whitespace-nowrap">
             <div className="flex gap-1 items-start">
-              <span className="text-amber-700">16</span>
+              <span className="text-amber-700">
+                {courseDays.reduce((sum, day) => sum + day.hours, 0)}
+              </span>
               <span className="text-white text-opacity-70">hours</span>
             </div>
           </div>
         </div>
+        {error && <p className="text-red-500">{error}</p>}
         {courseDays.map((day, index) => (
           <CourseDay key={index} {...day} />
         ))}
