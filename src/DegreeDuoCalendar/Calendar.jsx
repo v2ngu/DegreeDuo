@@ -1,8 +1,11 @@
-import React from 'react';
-import CalendarWeek from '../Components/CalendarWeek';
+import React, { useEffect, useState } from 'react';
+// import CalendarWeek from '../Components/CalendarWeek';
 import CalendarGrid from '../Components/CalendarGrid';
+import CalendarColumn from '../Components/CalendarColumn';
 import TimeSlot from '../Components/TimeSlot';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './Calendar.css';  // Import the CSS file
 
 function Calendar() {
   const navigate = useNavigate();
@@ -10,6 +13,23 @@ function Calendar() {
   const navigateTo = (path) => {
     navigate(path);
   };
+
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get('/data-api/rest/Schedule', {
+          baseURL: 'http://localhost:4280',
+        });
+        setCourses(response.data.value);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   return (
     <div className="p-4 bg-white w-full">
@@ -27,8 +47,12 @@ function Calendar() {
         
         {/* Calendar content */}
         <div className="flex flex-col w-full h-full min-w-[1050px]">
-          <CalendarWeek />
-          <CalendarGrid />
+          {/* <CalendarGrid /> */}
+          <div className="grid-container">
+            {Array.from({ length: 7 }).map((_, index) => (
+              <CalendarColumn key={index} index={index} courses={courses} />
+            ))}
+          </div>
         </div>
       </section>
     </div>

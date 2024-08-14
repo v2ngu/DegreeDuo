@@ -25,48 +25,65 @@ function CourseList() {
     fetchCourses();
   }, []);
 
+  const dayMapping = {
+    "M": "Mon",
+    "T": "Tue",
+    "W": "Wed",
+    "R": "Thu",
+    "F": "Fri",
+    "MWF": "Mon-Wed-Fri",
+    "TR": "Tue-Thu",
+    // Add other combinations as needed
+  };
+
   const groupCoursesByDays = (courses) => {
     const grouped = {};
-
+  
     courses.forEach((course) => {
-      const days = course.DAYS; // Use the entire DAYS string for grouping (e.g., 'MWF')
+      const days = course.DAYS;
+      const fullDays = dayMapping[days] ; // Use the mapping or fallback to the original string
 
-      if (!grouped[days]) {
-        grouped[days] = {
-          day: days, // Keep the DAYS string as the identifier
+      if (!grouped[fullDays]) {
+        grouped[fullDays] = {
+          day: fullDays,
           hours: 0,
           courses: []
         };
       }
 
-      const start = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}Z`);
-      const end = new Date(`1970-01-01T${convertTo24HourFormat(course.ENDTIME)}Z`);
-      const hours = (end - start) / (1000 * 60 * 60); // Calculate hours difference
-      grouped[days].hours += hours;
-      grouped[days].courses.push({
-        id: course.ID,
-        code: course.ID.match(/^[A-Z\s]+\d+[A-Z]?/)[0], 
+      const start = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}:00Z`);
+      const end = new Date(`1970-01-01T${convertTo24HourFormat(course.ENDTIME)}:00Z`);
+      const hours = (end.getTime() - start.getTime()) / (1000 * 60 * 60); // Convert milliseconds to hours
+
+      grouped[fullDays].hours += hours;
+      
+      grouped[fullDays].courses.push({
+        courseid: course.COURSEID,
         name: course.NAME,
-        instructor: course.PROFESSOR,
         time: `${course.STARTTIME} - ${course.ENDTIME}`,
-        color: 'bg-gray-500' // Adjust color as needed
+        instructor: course.PROFESSOR,
+        color: 'bg-red-500'
       });
     });
-
+  
     return Object.values(grouped);
   };
+  
 
   const convertTo24HourFormat = (time) => {
     const [timePart, modifier] = time.split(' ');
     let [hours, minutes] = timePart.split(':');
-    if (hours === '12') {
-      hours = '00';
+    hours = parseInt(hours, 10);
+  
+    if (modifier === 'PM' && hours !== 12) {
+      hours += 12;
+    } else if (modifier === 'AM' && hours === 12) {
+      hours = 0;
     }
-    if (modifier === 'PM') {
-      hours = parseInt(hours, 10) + 12;
-    }
-    return `${hours}:${minutes}`;
+  
+    return `${hours.toString().padStart(2, '0')}:${minutes}`;
   };
+  
 
   return (
     <section className="flex overflow-hidden flex-col pb-48 mt-4 w-full">

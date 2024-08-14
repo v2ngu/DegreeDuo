@@ -1,0 +1,82 @@
+/* Main container for the calendar grid and time slots */
+.calendar-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Full viewport height */
+    width: 100%;
+}
+
+/* Time slots on the left */
+.time-slots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px; /* Fixed width for time slots */
+    background-color: #f9fafb; /* Light background color */
+    border-right: 1px solid #e5e7eb; /* Light border on the right */
+}
+
+/* Main container for the calendar grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for each day */
+    grid-template-rows: repeat(24, minmax(1fr, auto)); /* Proportional rows for each hour */
+    gap: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto; /* Allows scrolling if content overflows */
+}
+
+/* Individual day columns */
+.column-container {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e5e7eb; /* Light border between columns */
+}
+
+/* Time slot styling */
+.time-slot {
+    height: calc(100% / 24); /* Each slot takes up 1/24th of the column height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #4B5563; /* Tailwind Gray-600 */
+    font-size: 0.75rem; /* Tailwind text-xs */
+    border-bottom: 1px solid #E5E7EB; /* Tailwind border-gray-200 */
+}
+
+/* Course block styling */
+.course-block {
+    position: relative;
+    background-color: #f97316; /* Orange color for the course block */
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 4px;
+    text-align: center;
+    padding: 4px;
+    margin: 2px;
+    z-index: 10;
+}
+
+/* Hover effect on course blocks */
+.course-block:hover {
+    background-color: #fb923c; /* Slightly lighter orange on hover */
+}
+
+/* Special styling for the header */
+.column-header {
+    text-align: center;
+    font-weight: bold;
+    background-color: #f1f5f9;
+    border-bottom: 2px solid #e5e7eb;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+/* Special styling for non-class days (like Sunday) */
+.non-class-day {
+    background-color: #f3f4f6;
+}
