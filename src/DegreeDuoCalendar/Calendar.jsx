@@ -3,7 +3,7 @@ import CalendarColumn from '../Components/CalendarColumn';
 import TimeSlot from '../Components/TimeSlot';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getColorForCourse } from './colorUtils';
+import { getColorForCourse } from './colorUtils'; // Import the color utility
 import './Calendar.css';
 
 function Calendar() {
