@@ -4,7 +4,11 @@ function Course({ courseid, name, instructor, time, color }) {
   return (
     <div className="flex flex-col mt-2 w-full">
       <div className="flex gap-2 items-center w-full">
-        <div className={`flex shrink-0 self-stretch my-auto w-3 h-3 ${color} rounded-full`} />
+        {/* Apply the color as an inline style */}
+        <div 
+          className="flex shrink-0 self-stretch my-auto w-3 h-3 rounded-full" 
+          style={{ backgroundColor: color }} 
+        />
         <div className="self-stretch my-auto text-xs font-medium leading-none text-white w-[142px]">
           {courseid}
         </div>

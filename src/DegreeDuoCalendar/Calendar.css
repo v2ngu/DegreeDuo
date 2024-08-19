@@ -6,22 +6,11 @@
     width: 100%;
 }
 
-/* Time slots on the left */
-.time-slots {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 60px; /* Fixed width for time slots */
-    background-color: #f9fafb; /* Light background color */
-    border-right: 1px solid #e5e7eb; /* Light border on the right */
-}
-
 /* Main container for the calendar grid */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(7, 1fr); /* 7 columns for each day */
-    grid-template-rows: repeat(24, minmax(1fr, auto)); /* Proportional rows for each hour */
+    grid-template-rows: repeat(13, 1fr); /* Ensure that the rows have equal height */
     gap: 0;
     height: 100%;
     width: 100%;
@@ -37,7 +26,7 @@
 
 /* Time slot styling */
 .time-slot {
-    height: calc(100% / 24); /* Each slot takes up 1/24th of the column height */
+    height: 40px; /* Ensure uniform height for all slots */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,11 +34,16 @@
     color: #4B5563; /* Tailwind Gray-600 */
     font-size: 0.75rem; /* Tailwind text-xs */
     border-bottom: 1px solid #E5E7EB; /* Tailwind border-gray-200 */
+    position: relative; /* To handle the course block inside */
 }
 
 /* Course block styling */
 .course-block {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: #f97316; /* Orange color for the course block */
     color: white;
     font-weight: bold;
@@ -57,8 +51,9 @@
     border-radius: 4px;
     text-align: center;
     padding: 4px;
-    margin: 2px;
     z-index: 10;
+    overflow: hidden; /* Ensures the block doesn’t overflow the time slot */
+    box-sizing: border-box;
 }
 
 /* Hover effect on course blocks */

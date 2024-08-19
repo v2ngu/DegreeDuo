@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CourseDay from './CourseDay';
+import { getColorForCourse } from './colorUtils'; // Import the color utility
 
 function CourseList() {
   const [courseDays, setCourseDays] = useState([]);
@@ -10,7 +11,6 @@ function CourseList() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Schedule', {
-          // baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net'
           baseURL: 'http://localhost:4280'
         });
         const courses = response.data.value;
@@ -33,57 +33,43 @@ function CourseList() {
     "F": "Fri",
     "MWF": "Mon-Wed-Fri",
     "TR": "Tue-Thu",
-    // Add other combinations as needed
   };
 
   const groupCoursesByDays = (courses) => {
     const grouped = {};
-  
+
     courses.forEach((course) => {
       const days = course.DAYS;
-      const fullDays = dayMapping[days] ; // Use the mapping or fallback to the original string
+      const fullDays = dayMapping[days] || days; // Use the mapping or fallback to the original string
 
       if (!grouped[fullDays]) {
         grouped[fullDays] = {
           day: fullDays,
-          hours: 0,
+          hours: 0, // Initialize hours for each day
           courses: []
         };
       }
 
-      const start = new Date(`1970-01-01T${convertTo24HourFormat(course.STARTTIME)}:00Z`);
-      const end = new Date(`1970-01-01T${convertTo24HourFormat(course.ENDTIME)}:00Z`);
-      const hours = (end.getTime() - start.getTime()) / (1000 * 60 * 60); // Convert milliseconds to hours
+      // Use regex to find the first number in COURSEID
+      const numberRegex = /\d/;
+      const match = course.COURSEID.match(numberRegex);
+      const firstNumber = match ? parseInt(match[0], 10) : 0; // Convert to integer and default to 0 if not found
+      grouped[fullDays].hours += firstNumber; // Add the first number to the total hours
 
-      grouped[fullDays].hours += hours;
-      
+      // Assign a color and ensure consistency using the utility
+      const color = getColorForCourse(course.COURSEID);
+
       grouped[fullDays].courses.push({
         courseid: course.COURSEID,
         name: course.NAME,
         time: `${course.STARTTIME} - ${course.ENDTIME}`,
         instructor: course.PROFESSOR,
-        color: 'bg-red-500'
+        color: color
       });
     });
-  
+
     return Object.values(grouped);
   };
-  
-
-  const convertTo24HourFormat = (time) => {
-    const [timePart, modifier] = time.split(' ');
-    let [hours, minutes] = timePart.split(':');
-    hours = parseInt(hours, 10);
-  
-    if (modifier === 'PM' && hours !== 12) {
-      hours += 12;
-    } else if (modifier === 'AM' && hours === 12) {
-      hours = 0;
-    }
-  
-    return `${hours.toString().padStart(2, '0')}:${minutes}`;
-  };
-  
 
   return (
     <section className="flex overflow-hidden flex-col pb-48 mt-4 w-full">
