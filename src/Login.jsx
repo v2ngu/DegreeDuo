@@ -1,5 +1,5 @@
-  import BackComponent from './Components/BackComponent';
-  import Title from './Components/Title';
+  import BackComponent from './Universal Components/BackComponent';
+  import Title from './Universal Components/Title';
   import { useNavigate } from 'react-router-dom';
 
   import './styles/Login.css';

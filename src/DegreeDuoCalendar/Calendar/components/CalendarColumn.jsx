@@ -1,5 +1,4 @@
-import React from 'react';
-import './CalendarColumn.css';
+import '../styles/CalendarColumn.css';
 
 const CalendarColumn = ({ index, courses }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Title from './Components/Title.jsx';
-import SearchByDepartmentAndLevel from './Components/SearchByDepartmentAndLevel';
-import SearchByCoreCurriculumAndFlags from './Components/SearchByCoreCurriculumAndFlags';
-import ClassSuggestion from './Components/ClassSuggestion';
-import SearchByUniqueCourseNumber from './Components/SearchByUniqueCourseNumber';
-import './styles/CourseSearch.css'; // Import the CSS file
+import Title from '../../Universal Components/Title.jsx';
+import SearchByDepartmentAndLevel from './SearchByDepartmentAndLevel';
+import SearchByCoreCurriculumAndFlags from './SearchByCoreCurriculumAndFlags';
+import ClassSuggestion from '../../Components/ClassSuggestion';
+import SearchByUniqueCourseNumber from './SearchByUniqueCourseNumber';
+import '../styles/CourseSearch.css'; // Import the CSS file
 
 const CourseSearch = () => {
   const [activeTab, setActiveTab] = useState('Department and Level');

@@ -1,9 +1,9 @@
 import React from 'react';
 import DegreeDuo from './DegreeDuo';
-import CourseList from './CourseList';
-import CourseDay from './CourseDay';
-import Calendar from './Calendar';
-function DegreeDuoContain() {
+import CourseList from '../SideBar/components/CourseList';
+import CourseDay from '../SideBar/components/CourseDay';
+import Calendar from '../Calendar/components/Calendar';
+function DegreeDuoContainer() {
   return (
     <div className="flex flex-row min-h-screen">
       <div className="w-[300px] bg-zinc-900">
@@ -16,4 +16,4 @@ function DegreeDuoContain() {
   );
 }
 
-export default DegreeDuoContain;
+export default DegreeDuoContainer;

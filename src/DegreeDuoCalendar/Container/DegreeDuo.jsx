@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Header';
-import CourseList from './CourseList';
+import Header from '../SideBar//components/Header';
+import CourseList from '../SideBar/components/CourseList';
 
 function DegreeDuo() {
   return (

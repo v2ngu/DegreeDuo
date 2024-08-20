@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import CalendarColumn from '../Components/CalendarColumn';
-import TimeSlot from '../Components/TimeSlot';
+import TimeSlot from '../../../Components/TimeSlot';
+import CalendarColumn from './CalendarColumn';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { getColorForCourse } from './colorUtils'; // Import the color utility
-import './Calendar.css';
+import { getColorForCourse } from '../../../util/colorUtils'; // Import the color utility
+import '../styles/Calendar.css';
 
 function Calendar() {
   const navigate = useNavigate();

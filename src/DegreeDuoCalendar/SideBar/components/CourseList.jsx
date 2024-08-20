@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CourseDay from './CourseDay';
-import { getColorForCourse } from './colorUtils'; // Import the color utility
+import { getColorForCourse } from '../../../util/colorUtils'; // Import the color utility
 
 function CourseList() {
   const [courseDays, setCourseDays] = useState([]);

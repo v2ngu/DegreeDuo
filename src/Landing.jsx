@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Title from './Components/Title.jsx';
+import Title from './Universal Components/Title.jsx';
 import './styles/Landing.css';
 
 function LandingPage() {
