@@ -1,9 +1,9 @@
-/* Main container for the calendar grid and time slots */
 .calendar-container {
     display: flex;
     flex-direction: row;
     height: 100vh; /* Full viewport height */
     width: 100%;
+    overflow: hidden; /* Prevent scrollbars on the main container */
 }
 
 /* Main container for the calendar grid */
@@ -14,7 +14,7 @@
     gap: 0;
     height: 100%;
     width: 100%;
-    overflow: auto; /* Allows scrolling if content overflows */
+    overflow: hidden; /* Allows scrolling if content overflows */
 }
 
 /* Individual day columns */
@@ -37,24 +37,7 @@
     position: relative; /* To handle the course block inside */
 }
 
-/* Course block styling */
-.course-block {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #f97316; /* Orange color for the course block */
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
-    border-radius: 4px;
-    text-align: center;
-    padding: 4px;
-    z-index: 10;
-    overflow: hidden; /* Ensures the block doesn’t overflow the time slot */
-    box-sizing: border-box;
-}
+
 
 /* Hover effect on course blocks */
 .course-block:hover {

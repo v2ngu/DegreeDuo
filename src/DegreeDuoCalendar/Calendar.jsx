@@ -44,8 +44,8 @@ function Calendar() {
         <button className="p-2 rounded bg-gray-200" onClick={() => navigateTo("/coursesearch")}>Add Course</button>
       </header>
       <section className="calendar-container flex gap-3 items-start w-4/5 h-full pl-10 max-md:pl-5 overflow-x-auto">
-        <div className="flex flex-col w-9 time-slot-container pt-10 mt-5">
-          {['7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM'].map((time, index) => (
+        <div className="flex flex-col w-9 time-slot-container mt-7">
+          {['8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM'].map((time, index) => (
             <TimeSlot key={index} time={time} />
           ))}
         </div>

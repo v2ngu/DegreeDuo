@@ -1,4 +1,5 @@
 import React from 'react';
+import './CalendarColumn.css';
 
 const CalendarColumn = ({ index, courses }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
@@ -50,39 +51,32 @@ const CalendarColumn = ({ index, courses }) => {
   return (
     <div className="column-container">
       <div className="column-header">{daysOfWeek[index]}</div>
-      {Array.from({ length: 26 }).map((_, rowIndex) => { // 26 slots from 8:00 AM to 9:00 PM
-        const course = filteredCourses.find(c => {
-          const startIndex = getTimeSlotIndex(c.STARTTIME);
-          const endIndex = getTimeSlotIndex(c.ENDTIME);
-          return rowIndex >= startIndex && rowIndex < endIndex;
-        });
+      <div className="time-slots-grid">
+        {filteredCourses.map((course, courseIndex) => {
+          const startIndex = getTimeSlotIndex(course.STARTTIME);
+          const endIndex = getTimeSlotIndex(course.ENDTIME);
+          const rowSpan = endIndex - startIndex;
 
-        return (
-          <div key={rowIndex} className="time-slot" style={{ position: 'relative' }}>
-            {course && (
-              <div 
-                className="course-block" 
-                style={{ 
-                  backgroundColor: adjustColorOpacity(course.color, 0.3), // Adjust opacity here
-                  border: `2px solid ${course.color}`, // Add a border with the original color
-                  padding: '4px',
-                  margin: '2px',
-                  color: 'black', // Ensure text color is visible
-                  fontWeight: 'bold',
-                  borderRadius: '4px',
-                  position: 'absolute',
-                  width: '100%',
-                  height: '100%',
-                }}
-              >
-                <span className="course-name">
-                  {course.NAME}
-                </span>
-              </div>
-            )}
-          </div>
-        );
-      })}
+          return (
+            <div
+              key={courseIndex}
+              className="course-block"
+              style={{
+                gridRow: `${startIndex + 1} / span ${rowSpan}`, // Span the rows
+                backgroundColor: adjustColorOpacity(course.color, 0.3), // Adjust opacity here
+                border: `2px solid ${course.color}`, // Border with the original color
+                padding: '4px',
+                margin: '2px',
+                color: 'black', // Ensure text color is visible
+                fontWeight: 'bold',
+                borderRadius: '4px',
+              }}
+            >
+              <span className="course-name">{course.NAME}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
