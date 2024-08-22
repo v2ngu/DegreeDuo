@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getColorForCourse } from '../../../util/colorUtils'; // Import the color utility
 import '../styles/Calendar.css';
+import CoursePopup from '../popup/CoursePopup'; // Import the CoursePopup component
 
 function Calendar() {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -37,6 +39,14 @@ function Calendar() {
     navigate(path);
   };
 
+  const handleCourseClick = (course) => {
+    setSelectedCourse(course);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedCourse(null);
+  };
+
   return (
     <div className="p-4 bg-white w-full">
       <header className="flex justify-between items-center mb-4">
@@ -52,11 +62,12 @@ function Calendar() {
         <div className="flex flex-col w-full h-full min-w-[1050px]">
           <div className="grid-container">
             {Array.from({ length: 7 }).map((_, index) => (
-              <CalendarColumn key={index} index={index} courses={courses} />
+              <CalendarColumn key={index} index={index} courses={courses} onCourseClick={handleCourseClick} />
             ))}
           </div>
         </div>
       </section>
+      {selectedCourse && <CoursePopup course={selectedCourse} onClose={handleClosePopup} />}
     </div>
   );
 }

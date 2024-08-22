@@ -1,6 +1,7 @@
+import React from 'react';
 import '../styles/CalendarColumn.css';
 
-const CalendarColumn = ({ index, courses }) => {
+const CalendarColumn = ({ index, courses, onCourseClick }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
   const filteredCourses = courses.filter(course => {
@@ -70,6 +71,7 @@ const CalendarColumn = ({ index, courses }) => {
                 fontWeight: 'bold',
                 borderRadius: '4px',
               }}
+              onClick={() => onCourseClick(course)} // Handle click event
             >
               <span className="course-name">{course.NAME}</span>
             </div>
