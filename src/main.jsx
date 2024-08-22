@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import LandingPage from './Landing.jsx';
-import Login from './Login.jsx';
-import Register from './Register.jsx';
-import GuestProfile from './GuestPopUp.jsx';
 import CoursesList from './CoursesList.jsx';
 import Schedule from './Schedule.jsx'
 import SignInForm from './Components/SignInForm.jsx';

@@ -16,7 +16,8 @@ function Calendar() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Schedule', {
-          baseURL: 'http://localhost:4280',
+          baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net/',
+          // baseURL: 'http://localhost:4280',
         });
         const courses = response.data.value;
 

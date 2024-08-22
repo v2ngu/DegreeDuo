@@ -4,23 +4,20 @@ const CoursePopup = ({ course, onClose }) => {
   const popupRef = useRef(null);
 
   useEffect(() => {
-    // Function to handle clicks outside the popup
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         onClose();
       }
     };
 
-    // Add event listener for clicks outside
     document.addEventListener('mousedown', handleClickOutside);
 
-    // Clean up the event listener on component unmount
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [onClose]);
 
-  if (!course) return null; // If no course is selected, don't render the popup
+  if (!course) return null;
 
   const styles = {
     overlay: {
@@ -43,8 +40,8 @@ const CoursePopup = ({ course, onClose }) => {
       overflow: 'hidden',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     },
-    blueSide: {
-      backgroundColor: '#4A90E2',
+    colorSide: {
+      backgroundColor: course.color || '#4A90E2', // Use course color or default to blue
       width: '20%',
     },
     content: {
@@ -53,33 +50,42 @@ const CoursePopup = ({ course, onClose }) => {
       width: '80%',
     },
     courseCode: {
-      fontSize: '1rem',
+      fontSize: '0.75rem',
       margin: '0',
+      color: '#FFF',
+      fontWeight: '500',
     },
     courseTitle: {
-      fontSize: '1.2rem',
+      fontSize: '0.75rem',
       margin: '5px 0',
+      color: '#FFF',
+      fontWeight: '600',
     },
     instructor: {
-      fontSize: '0.9rem',
+      fontSize: '0.75rem',
       margin: '5px 0',
-      color: '#CCC',
+      color: '#D1D5DB', // Match sidebar font color
     },
     courseInfo: {
-      fontSize: '0.8rem',
+      fontSize: '0.75rem',
       margin: '2px 0',
+      color: '#D1D5DB', // Match sidebar font color
     },
     labTitle: {
-      fontSize: '1rem',
+      fontSize: '0.75rem',
       margin: '10px 0 0 0',
+      color: '#FFF',
+      fontWeight: '600',
     },
     labTime: {
-      fontSize: '0.8rem',
+      fontSize: '0.75rem',
       margin: '2px 0',
+      color: '#D1D5DB', // Match sidebar font color
     },
     labLocation: {
-      fontSize: '0.8rem',
+      fontSize: '0.75rem',
       margin: '2px 0',
+      color: '#D1D5DB', // Match sidebar font color
     },
     buttonContainer: {
       display: 'flex',
@@ -99,17 +105,16 @@ const CoursePopup = ({ course, onClose }) => {
   return (
     <div style={styles.overlay}>
       <div style={styles.popup} ref={popupRef}>
-        <div style={styles.blueSide}></div>
+        <div style={{ ...styles.colorSide, backgroundColor: course.color }}></div>
         <div style={styles.content}>
           <h3 style={styles.courseCode}>{course.COURSEID}</h3>
           <h2 style={styles.courseTitle}>{course.NAME}</h2>
           <p style={styles.instructor}>{course.PROFESSOR}</p>
-          <p style={styles.courseInfo}>{course.COURSEINFO}</p> {/* Assuming COURSEINFO is the right field */}
-          <p style={styles.courseInfo}>{course.LOCATION}</p> {/* Assuming LOCATION is the right field */}
-          <p style={styles.courseInfo}>{course.METHOD}</p> {/* Assuming METHOD is the right field */}
+          <p style={styles.courseInfo}>Start Time: {course.STARTTIME}</p>
+          <p style={styles.courseInfo}>End Time: {course.ENDTIME}</p>
           <h3 style={styles.labTitle}>LAB</h3>
-          <p style={styles.labTime}>{course.LABTIME}</p> {/* Assuming LABTIME is the right field */}
-          <p style={styles.labLocation}>{course.LABLOCATION}</p> {/* Assuming LABLOCATION is the right field */}
+          <p style={styles.labTime}>{course.LABTIME || 'N/A'}</p>
+          <p style={styles.labLocation}>{course.LABLOCATION || 'N/A'}</p>
           <div style={styles.buttonContainer}>
             <button style={styles.button}>Replace</button>
             <button style={styles.button} onClick={onClose}>Remove</button>

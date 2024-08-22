@@ -5,7 +5,7 @@ const CalendarColumn = ({ index, courses, onCourseClick }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
   const filteredCourses = courses.filter(course => {
-    const courseDays = course.DAYS.split('');
+    const courseDays = course.DAYS.match(/(Th|[MTWF])/g); // Match 'Th' or any of 'MTWF'
     const dayMapping = {
       'S': 0,  // Sunday
       'M': 1,  // Monday
@@ -17,6 +17,7 @@ const CalendarColumn = ({ index, courses, onCourseClick }) => {
     };
     return courseDays.some(cd => dayMapping[cd] === index);
   });
+  
 
   const getTimeSlotIndex = (startTime) => {
     const [time, period] = startTime.split(' ');
