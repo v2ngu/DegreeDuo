@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CourseDay from './CourseDay';
-import { getColorForCourse } from '../../../util/colorUtils'; // Import the color utility
+import { getColorForCourse } from '../Calendar/colorUtils'; // Import the color utility
 
 function CourseList() {
   const [courseDays, setCourseDays] = useState([]);
@@ -32,7 +32,7 @@ function CourseList() {
     "R": "Thu",
     "F": "Fri",
     "MWF": "Mon-Wed-Fri",
-    "TTh": "Tue-Thu",
+    "TR": "Tue-Thu",
   };
 
   const groupCoursesByDays = (courses) => {
