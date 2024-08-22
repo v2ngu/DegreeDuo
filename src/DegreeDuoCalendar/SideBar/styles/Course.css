@@ -1,0 +1,33 @@
+.course-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .course-item:last-child {
+    border-bottom: none;
+  }
+  
+  .course-item .course-details {
+    margin-top: 5px;
+  }
+  
+  .course-item .course-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .course-item .course-time {
+    font-size: 0.85rem;
+    color: #9ca3af; /* Light grey color */
+  }
+  
+  .course-item .course-instructor {
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+  
+  .course-item .course-details div {
+    margin-bottom: 4px;
+  }
+  

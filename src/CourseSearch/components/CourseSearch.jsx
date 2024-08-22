@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Title from './Components/Title.jsx';
-import SearchByDepartmentAndLevel from './Components/SearchByDepartmentAndLevel';
-import SearchByCoreCurriculumAndFlags from './Components/SearchByCoreCurriculumAndFlags';
-import ClassSuggestion from './Components/ClassSuggestion';
-import SearchByUniqueCourseNumber from './Components/SearchByUniqueCourseNumber';
-import './styles/CourseSearch.css'; // Import the CSS file
+import Title from '../../Universal Components/Title.jsx';
+import SearchByDepartmentAndLevel from './SearchByDepartmentAndLevel';
+import SearchByCoreCurriculumAndFlags from './SearchByCoreCurriculumAndFlags';
+import ClassSuggestion from '../../Components/ClassSuggestion';
+import SearchByUniqueCourseNumber from './SearchByUniqueCourseNumber';
+import '../styles/CourseSearch.css'; // Import the CSS file
 
 const CourseSearch = () => {
   const [activeTab, setActiveTab] = useState('Department and Level');
@@ -83,8 +83,8 @@ const CourseSearch = () => {
       <Title text="degreeDuo" onClick={handleTitleClick} />
       <h1 style={styles.title}>Fall 2024 Schedule</h1>
       <div style={styles.navBar}>
-        <div style={styles.navItem} onClick={() => navigate('/schedule')}>SCHEDULE</div>
-        <div style={{ ...styles.navItem, ...styles.activeNavItem }} onClick={() => navigate('/search-add-classes')}>SEARCH/ADD CLASSES</div>
+        <div style={styles.navItem} onClick={() => navigate('/')}>SCHEDULE</div>
+        <div style={{ ...styles.navItem, ...styles.activeNavItem }} onClick={() => navigate('/coursesearch')}>SEARCH/ADD CLASSES</div>
       </div>
       <div style={styles.tabs}>
         <div style={{ ...styles.tab, ...(activeTab === 'Department and Level' ? styles.activeTab : {}) }} onClick={() => setActiveTab('Department and Level')}>SEARCH BY DEPARTMENT AND LEVEL</div>

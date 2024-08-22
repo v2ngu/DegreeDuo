@@ -1,0 +1,13 @@
+.time-slots-grid {
+    display: grid;
+    grid-template-rows: repeat(22, 30px); /* 22 rows, each 30px tall */
+    gap: 0; /* No gap needed */
+    max-height: 660px; /* 22 rows * 30px each */
+    background: repeating-linear-gradient(
+        to bottom,
+        #f9fafb, /* Background color for the time slots */
+        #f9fafb 29px, /* End of the row background */
+        #e5e7eb 29px, /* Start of the border line */
+        #e5e7eb 30px /* End of the border line */
+    );
+}

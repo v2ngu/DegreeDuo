@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/Schedule.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Title from './Components/Title.jsx';
+import Title from './Universal Components/Title.jsx';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const times = [
