@@ -23,7 +23,8 @@ const CourseSearch = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/data-api/rest/Courses', {
-          baseURL: 'http://localhost:4280' // Adjust this URL as needed
+          //baseURL: 'http://localhost:4280' // Adjust this URL as needed
+          baseURL: 'https://witty-stone-04723010f.5.azurestaticapps.net/'
         });
         
         // Check if the response is JSON
