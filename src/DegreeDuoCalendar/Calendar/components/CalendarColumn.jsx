@@ -1,10 +1,11 @@
+import React from 'react';
 import '../styles/CalendarColumn.css';
 
-const CalendarColumn = ({ index, courses }) => {
+const CalendarColumn = ({ index, courses, onCourseClick }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
 
   const filteredCourses = courses.filter(course => {
-    const courseDays = course.DAYS.split('');
+    const courseDays = course.DAYS.match(/(Th|[MTWF])/g); // Match 'Th' or any of 'MTWF'
     const dayMapping = {
       'S': 0,  // Sunday
       'M': 1,  // Monday
@@ -16,6 +17,7 @@ const CalendarColumn = ({ index, courses }) => {
     };
     return courseDays.some(cd => dayMapping[cd] === index);
   });
+  
 
   const getTimeSlotIndex = (startTime) => {
     const [time, period] = startTime.split(' ');
@@ -70,6 +72,7 @@ const CalendarColumn = ({ index, courses }) => {
                 fontWeight: 'bold',
                 borderRadius: '4px',
               }}
+              onClick={() => onCourseClick(course)} // Handle click event
             >
               <span className="course-name">{course.NAME}</span>
             </div>

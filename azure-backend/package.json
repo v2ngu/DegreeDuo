@@ -1,0 +1,17 @@
+{
+  "name": "my-azure-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/cosmos": "^4.1.0",
+    "@azure/storage-blob": "^12.24.0",
+    "express": "^4.19.2"
+  }
+}
